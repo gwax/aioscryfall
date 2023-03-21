@@ -1,0 +1,58 @@
+[project]
+name = "pscryfall"
+version = "0.1.0"
+dependencies = [
+    "aiohttp",
+    "appdirs",
+    "msgspec",
+    "requests-cache",
+    "requests",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/gwax/pscryfall"
+"Bug Tracker" = "https://github.com/gwax/pscryfall/issues"
+
+[project.optional-dependencies]
+dev = [
+    "aioresponses",
+    "black",
+    "doc8",
+    "flake8",
+    "flake8-bugbear",
+    "flake8-comprehensions",
+    "flake8-mutable",
+    "flake8-pyproject",
+    "isort",
+    "mypy",
+    "Pygments",
+    "pylint",
+    "pytest",
+    "pytest-asyncio",
+]
+
+[tool.mypy]
+python_version = "3.10"
+
+follow_imports = "normal"
+disallow_untyped_defs = true
+allow_untyped_globals = false
+
+[tool.flake8]
+ignore = ["E203", "E501", "F401", "W503"]
+max_complexity = 10
+exclude = [".git", "__pycache__", "build", "dist"]
+
+[tool.pytest.ini_options]
+xfail_strict = true
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.isort]
+profile = "black"
+atomic = true
+line_length = 88
+known_first_party = [
+    "pscryfall",
+    "tests",
+]
