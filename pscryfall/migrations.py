@@ -5,8 +5,7 @@ Documentation: https://scryfall.com/docs/api/migrations
 
 from typing import TYPE_CHECKING
 
-import msgspec
-
+from . import responses
 from .models import List, Migration
 
 if TYPE_CHECKING:
@@ -15,14 +14,14 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 
-async def all_migrations(session: "ClientSession") -> List:
+async def all_migrations(session: "ClientSession") -> List[Migration]:
     """Client implementation for the Scryfall API's /migrations endpoint.
 
     Documentation: https://scryfall.com/docs/api/migrations/all
     """
     url = "https://api.scryfall.com/migrations"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=List)
+        return await responses.parse(resp, List)
 
 
 async def get(session: "ClientSession", scryfall_id: "UUID") -> Migration:
@@ -32,4 +31,4 @@ async def get(session: "ClientSession", scryfall_id: "UUID") -> Migration:
     """
     url = f"https://api.scryfall.com/migrations/{scryfall_id}"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Migration)
+        return await responses.parse(resp, Migration)

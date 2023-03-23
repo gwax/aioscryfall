@@ -5,8 +5,7 @@ Documentation: https://scryfall.com/docs/api/catalogs
 
 from typing import TYPE_CHECKING
 
-import msgspec
-
+from . import responses
 from .models import Catalog
 
 if TYPE_CHECKING:
@@ -20,7 +19,7 @@ async def card_names(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/card-names"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def artist_names(session: "ClientSession") -> Catalog:
@@ -30,7 +29,7 @@ async def artist_names(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/artist-names"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def word_bank(session: "ClientSession") -> Catalog:
@@ -40,7 +39,7 @@ async def word_bank(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/word-bank"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def creature_types(session: "ClientSession") -> Catalog:
@@ -50,7 +49,7 @@ async def creature_types(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/creature-types"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def planeswalker_types(session: "ClientSession") -> Catalog:
@@ -60,7 +59,7 @@ async def planeswalker_types(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/planeswalker-types"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def land_types(session: "ClientSession") -> Catalog:
@@ -70,7 +69,7 @@ async def land_types(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/land-types"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def artifact_types(session: "ClientSession") -> Catalog:
@@ -80,7 +79,7 @@ async def artifact_types(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/artifact-types"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def enchantment_types(session: "ClientSession") -> Catalog:
@@ -90,7 +89,7 @@ async def enchantment_types(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/enchantment-types"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def spell_types(session: "ClientSession") -> Catalog:
@@ -100,7 +99,7 @@ async def spell_types(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/spell-types"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def powers(session: "ClientSession") -> Catalog:
@@ -110,7 +109,7 @@ async def powers(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/powers"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def toughnesses(session: "ClientSession") -> Catalog:
@@ -120,7 +119,7 @@ async def toughnesses(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/toughnesses"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def loyalties(session: "ClientSession") -> Catalog:
@@ -130,7 +129,7 @@ async def loyalties(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/loyalties"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def watermarks(session: "ClientSession") -> Catalog:
@@ -140,7 +139,7 @@ async def watermarks(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/watermarks"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def keyword_abilities(session: "ClientSession") -> Catalog:
@@ -150,7 +149,7 @@ async def keyword_abilities(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/keyword-abilities"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def keyword_actions(session: "ClientSession") -> Catalog:
@@ -160,7 +159,7 @@ async def keyword_actions(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/keyword-actions"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)
 
 
 async def ability_words(session: "ClientSession") -> Catalog:
@@ -170,4 +169,4 @@ async def ability_words(session: "ClientSession") -> Catalog:
     """
     url = "https://api.scryfall.com/catalog/ability-words"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Catalog)
+        return await responses.parse(resp, Catalog)

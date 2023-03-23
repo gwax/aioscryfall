@@ -5,8 +5,7 @@ Documentation: https://scryfall.com/docs/api/sets
 
 from typing import TYPE_CHECKING
 
-import msgspec
-
+from . import responses
 from .models import List, Set
 
 if TYPE_CHECKING:
@@ -15,14 +14,14 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 
-async def all_sets(session: "ClientSession") -> List:
+async def all_sets(session: "ClientSession") -> List[Set]:
     """Client implementation for the Scryfall API's /sets endpoint.
 
     Documentation: https://scryfall.com/docs/api/sets/all
     """
     url = "https://api.scryfall.com/sets"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=List)
+        return await responses.parse(resp, List[Set])
 
 
 async def code(session: "ClientSession", set_code: str) -> Set:
@@ -32,7 +31,7 @@ async def code(session: "ClientSession", set_code: str) -> Set:
     """
     url = f"https://api.scryfall.com/sets/{set_code}"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Set)
+        return await responses.parse(resp, Set)
 
 
 async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> Set:
@@ -42,7 +41,7 @@ async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> Set:
     """
     url = f"https://api.scryfall.com/sets/tcgplayer/{tcgplayer_id}"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Set)
+        return await responses.parse(resp, Set)
 
 
 async def get(session: "ClientSession", scryfall_id: "UUID") -> Set:
@@ -52,4 +51,4 @@ async def get(session: "ClientSession", scryfall_id: "UUID") -> Set:
     """
     url = f"https://api.scryfall.com/sets/{scryfall_id}"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=Set)
+        return await responses.parse(resp, Set)

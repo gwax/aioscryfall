@@ -1,12 +1,16 @@
 """Scryfall object models."""
 
+import dataclasses
 import datetime as dt
 from decimal import Decimal
 from enum import Enum
-from typing import TypeAlias
+from typing import TYPE_CHECKING, Generic, TypeAlias, TypeVar, cast
 from uuid import UUID
 
 from msgspec import Struct
+
+if TYPE_CHECKING:
+    from typing import Self
 
 
 class Color(str, Enum):
@@ -459,7 +463,7 @@ class CardSymbol(
     english: str
     transposable: bool
     represents_mana: bool
-    mana_value: Decimal | None = None
+    mana_value: float | None = None
     appears_in_mana_costs: bool
     funny: bool
     colors: list[Color]
@@ -473,17 +477,17 @@ class ManaCost(
     """Model for https://scryfall.com/docs/api/card-symbols/parse-mana"""
 
     cost: str
-    cmc: Decimal
+    cmc: float
     colors: list[Color]
     colorless: bool
     monocolored: bool
     multicolored: bool
 
 
-Listable: TypeAlias = Set | Card | BulkData | Migration | Ruling | CardSymbol | ManaCost
+Listable: TypeAlias = Set | Card | BulkData | Migration | Ruling | CardSymbol
 
 
-class List(Struct, tag_field="object", tag="list", kw_only=True, omit_defaults=True):
+class RawList(Struct, tag_field="object", tag="list", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/lists"""
 
     data: list[Listable]
@@ -491,3 +495,28 @@ class List(Struct, tag_field="object", tag="list", kw_only=True, omit_defaults=T
     next_page: str | None = None
     total_cards: int | None = None
     warnings: list[str] | None = None
+
+
+T = TypeVar("T")
+
+
+@dataclasses.dataclass(kw_only=True)
+class List(Generic[T]):
+    """Typed variant of RawList for improved type checking."""
+
+    data: list[T]
+    has_more: bool
+    next_page: str | None
+    total_cards: int | None
+    warnings: list[str] | None
+
+    @classmethod
+    def from_raw(cls, raw: RawList) -> "Self":
+        """Convert a RawList to a typed List."""
+        return cls(
+            data=cast(list[T], raw.data),
+            has_more=raw.has_more,
+            next_page=raw.next_page,
+            total_cards=raw.total_cards,
+            warnings=raw.warnings,
+        )

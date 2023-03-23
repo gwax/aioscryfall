@@ -1,23 +1,23 @@
 import asyncio
 import contextlib
-from typing import TYPE_CHECKING, AsyncIterable
+from typing import TYPE_CHECKING, AsyncIterable, TypeVar, cast
 
-import msgspec
-
-from .models import List
+from . import responses
+from .models import List, RawList
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
 
     from .models import Listable
 
+T = TypeVar("T")
+
 
 async def depage_list(
-    session: "ClientSession", paged_list: List
-) -> AsyncIterable["Listable"]:
+    session: "ClientSession", paged_list: List[T]
+) -> AsyncIterable[T]:
     """Iterate over a paged list, calling next page as needed."""
-    list_decoder: msgspec.json.Decoder | None = None
-    current_page: List | None = paged_list
+    current_page: List[T] | None = paged_list
     while current_page is not None:
         next_page_task = None
         if current_page.next_page is not None:
@@ -29,6 +29,6 @@ async def depage_list(
         current_page = None
         if next_page_task is not None:
             with contextlib.closing(await next_page_task) as next_page_resp:
-                if list_decoder is None:
-                    list_decoder = msgspec.json.Decoder(List)
-                current_page = list_decoder.decode(await next_page_resp.read())
+                current_page = cast(
+                    List[T], await responses.parse(next_page_resp, RawList)
+                )

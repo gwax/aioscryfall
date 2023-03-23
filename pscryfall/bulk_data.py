@@ -12,6 +12,7 @@ import appdirs
 import msgspec
 from requests_cache import CachedSession, SerializerPipeline, Stage, pickle_serializer
 
+from . import responses
 from .models import BulkData, List, Listable
 
 if TYPE_CHECKING:
@@ -19,7 +20,9 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
 
-BULK_FILE_CACHE: ContextVar[CachedSession] = ContextVar("BULK_FILE_CACHE", default=None)
+BULK_FILE_CACHE: ContextVar[CachedSession | None] = ContextVar(
+    "BULK_FILE_CACHE", default=None
+)
 
 
 def _get_requests_session() -> CachedSession:
@@ -45,14 +48,14 @@ def _get_requests_session() -> CachedSession:
     return cache
 
 
-async def all_bulk_data(session: "ClientSession") -> List:
+async def all_bulk_data(session: "ClientSession") -> List[BulkData]:
     """Client implementation for the Scryfall API's /bulk-data endpoint.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/all
     """
     url = "https://api.scryfall.com/bulk-data"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=List)
+        return await responses.parse(resp, List[BulkData])
 
 
 async def get(session: "ClientSession", scryfall_id: "UUID") -> BulkData:
@@ -62,7 +65,7 @@ async def get(session: "ClientSession", scryfall_id: "UUID") -> BulkData:
     """
     url = f"https://api.scryfall.com/bulk-data/{scryfall_id}"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=BulkData)
+        return await responses.parse(resp, BulkData)
 
 
 async def bulk_data_type(session: "ClientSession", bulk_data_type: str) -> BulkData:
@@ -72,10 +75,10 @@ async def bulk_data_type(session: "ClientSession", bulk_data_type: str) -> BulkD
     """
     url = f"https://api.scryfall.com/bulk-data/{bulk_data_type}"
     async with session.get(url) as resp:
-        return msgspec.json.decode(await resp.read(), type=BulkData)
+        return await responses.parse(resp, BulkData)
 
 
-def fetch(bulk_data: BulkData) -> list[Listable]:
+async def fetch(bulk_data: BulkData) -> list[Listable]:
     """Fetch and parse a given bulk data file.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/files
