@@ -2,9 +2,9 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from pscryfall import symbols
-from pscryfall.errors import APIError
-from pscryfall.models import Color
+from aioscryfall import symbols
+from aioscryfall.errors import APIError
+from aioscryfall.models import Color
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession

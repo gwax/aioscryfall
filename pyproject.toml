@@ -1,5 +1,5 @@
 [project]
-name = "pscryfall"
+name = "aioscryfall"
 version = "0.1.0"
 dependencies = [
     "aiohttp",
@@ -10,8 +10,8 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/gwax/pscryfall"
-"Bug Tracker" = "https://github.com/gwax/pscryfall/issues"
+"Homepage" = "https://github.com/gwax/aioscryfall"
+"Bug Tracker" = "https://github.com/gwax/aioscryfall/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -57,6 +57,6 @@ profile = "black"
 atomic = true
 line_length = 88
 known_first_party = [
-    "pscryfall",
+    "aioscryfall",
     "tests",
 ]

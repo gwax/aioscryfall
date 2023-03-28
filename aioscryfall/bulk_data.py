@@ -28,7 +28,7 @@ BULK_FILE_CACHE: ContextVar[CachedSession | None] = ContextVar(
 def _get_requests_session() -> CachedSession:
     cache = BULK_FILE_CACHE.get()
     if cache is None:
-        cache_dir = appdirs.user_cache_dir("pscryfall")
+        cache_dir = appdirs.user_cache_dir("aioscryfall")
         cache_file = os.path.join(cache_dir, "requests_cache.sqlite")
         serializer = SerializerPipeline(
             [

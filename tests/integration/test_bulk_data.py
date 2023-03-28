@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
-from pscryfall import bulk_data
-from pscryfall.models import Ruling
+from aioscryfall import bulk_data
+from aioscryfall.models import Ruling
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession

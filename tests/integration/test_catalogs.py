@@ -1,8 +1,8 @@
-"""Integration tests for pscryfall.catalogs."""
+"""Integration tests for aioscryfall.catalogs."""
 
 from typing import TYPE_CHECKING
 
-from pscryfall import catalogs
+from aioscryfall import catalogs
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession

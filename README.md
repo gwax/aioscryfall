@@ -1,2 +1,3 @@
-# pscryfall
-A Python client library for typed access to Scryfall APIs.
+# aioscryfall
+
+A Python async client library for typed access to Scryfall APIs.

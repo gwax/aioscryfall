@@ -3,10 +3,10 @@ from uuid import UUID
 
 import pytest
 
-from pscryfall import cards
-from pscryfall.cards import CardIdentifier, SortDirection, SortOrdering, UniqueMode
-from pscryfall.errors import APIError
-from pscryfall.models import Card, CardLayout
+from aioscryfall import cards
+from aioscryfall.cards import CardIdentifier, SortDirection, SortOrdering, UniqueMode
+from aioscryfall.errors import APIError
+from aioscryfall.models import Card, CardLayout
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession

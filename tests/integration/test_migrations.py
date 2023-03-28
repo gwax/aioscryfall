@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from pscryfall import migrations
+from aioscryfall import migrations
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
