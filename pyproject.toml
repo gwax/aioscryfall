@@ -1,6 +1,22 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "aioscryfall"
-version = "0.1.0"
+description = "Asynchronous Python client for the Scryfall API"
+dynamic = ["version"]
+readme = "README.rst"
+authors = [
+    "George Leslie-Waksman <waksman@gmail.com>",
+]
+requires-python = ">=3.11"
+keywords = [
+    "mtg",
+    "magic",
+    "scryfall",
+]
+license = "MIT"
 dependencies = [
     "aiohttp",
     "appdirs",
@@ -30,6 +46,13 @@ dev = [
     "pytest",
     "pytest-asyncio",
 ]
+
+[tool.setuptools]
+packages = ["aioscryfall"]
+
+[tool.setuptools_scm]
+write_to = "aioscryfall/_version.py"
+local_scheme = "no-local-version"
 
 [tool.mypy]
 python_version = "3.11"
