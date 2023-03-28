@@ -1,5 +1,5 @@
 name: publish
-concurrency: publish
+concurrency: publish-${{ github.ref }}
 
 on:
   push:
