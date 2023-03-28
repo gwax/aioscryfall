@@ -21,7 +21,7 @@ async def all_migrations(session: "ClientSession") -> List[Migration]:
     """
     url = "https://api.scryfall.com/migrations"
     async with session.get(url) as resp:
-        return await responses.parse(resp, List)
+        return await responses.parse(resp, List[Migration])
 
 
 async def get(session: "ClientSession", scryfall_id: "UUID") -> Migration:
