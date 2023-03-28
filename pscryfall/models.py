@@ -207,6 +207,7 @@ class Format(str, Enum):
     PAUPERCOMMANDER = "paupercommander"
     PREMODERN = "premodern"
     PREDH = "predh"
+    OATHBREAKER = "oathbreaker"
 
 
 class Legality(str, Enum):
@@ -437,7 +438,7 @@ class Catalog(
 ):
     """Model for https://scryfall.com/docs/api/catalog"""
 
-    uri: str
+    uri: str | None = None
     total_values: int
     data: list[str]
 
@@ -491,7 +492,7 @@ class RawList(Struct, tag_field="object", tag="list", kw_only=True, omit_default
     """Model for https://scryfall.com/docs/api/lists"""
 
     data: list[Listable]
-    has_more: bool
+    has_more: bool | None = None
     next_page: str | None = None
     total_cards: int | None = None
     warnings: list[str] | None = None
@@ -505,7 +506,7 @@ class List(Generic[T]):
     """Typed variant of RawList for improved type checking."""
 
     data: list[T]
-    has_more: bool
+    has_more: bool | None = None
     next_page: str | None
     total_cards: int | None
     warnings: list[str] | None

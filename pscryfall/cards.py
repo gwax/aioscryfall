@@ -7,6 +7,8 @@ from enum import Enum
 from typing import TYPE_CHECKING, TypeAlias, TypedDict, overload
 from uuid import UUID
 
+import msgspec.json
+
 from . import responses
 from .models import Card, Catalog, List
 
@@ -78,19 +80,25 @@ async def search(
         params["page"] = str(page)
 
     async with session.get(url, params=params) as resp:
-        return await responses.parse(resp, List)
+        return await responses.parse(resp, List[Card])
 
 
 @overload
 async def named(
-    session: "ClientSession", *, exact: str, fuzzy: None, set_code: str | None
+    session: "ClientSession",
+    *,
+    exact: str,
+    set_code: str | None = None,
 ) -> Card:
     ...
 
 
 @overload
 async def named(
-    session: "ClientSession", *, exact: None, fuzzy: str, set_code: str | None
+    session: "ClientSession",
+    *,
+    fuzzy: str,
+    set_code: str | None = None,
 ) -> Card:
     ...
 
@@ -206,9 +214,12 @@ async def collection(
     Documentation: https://scryfall.com/docs/api/cards/collection
     """
     url = "https://api.scryfall.com/cards/collection"
+    headers = {"Content-Type": "application/json"}
     body = {"identifiers": identifiers}
-    async with session.post(url, json=body) as resp:
-        return await responses.parse(resp, List)
+    data = msgspec.json.encode(body)
+    print(body, msgspec.json.encode(body))
+    async with session.post(url, headers=headers, data=data) as resp:
+        return await responses.parse(resp, List[Card])
 
 
 async def set_code_and_number(
