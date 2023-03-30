@@ -1,20 +1,23 @@
+"""Paging utilities for Scryfall list responses."""
+
 import asyncio
 import contextlib
-from typing import TYPE_CHECKING, AsyncIterable, TypeVar, cast
+from collections.abc import AsyncIterable
+from typing import TYPE_CHECKING, TypeVar
 
-from . import responses
-from .models import List, RawList
+from aioscryfall.api import responses
+from aioscryfall.models.lists import ScryList, ScryListable
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 
-T = TypeVar("T")
+_T = TypeVar("_T", bound=ScryListable)
 
 
-async def depage_list(session: "ClientSession", paged_list: List[T]) -> AsyncIterable[T]:
+async def depage_list(session: "ClientSession", paged_list: ScryList[_T]) -> AsyncIterable[_T]:
     """Iterate over a paged list, calling next page as needed."""
-    current_page: List[T] | None = paged_list
+    current_page: ScryList[_T] | None = paged_list
     while current_page is not None:
         next_page_task = None
         if current_page.next_page is not None:
@@ -26,4 +29,4 @@ async def depage_list(session: "ClientSession", paged_list: List[T]) -> AsyncIte
         current_page = None
         if next_page_task is not None:
             with contextlib.closing(await next_page_task) as next_page_resp:
-                current_page = cast(List[T], await responses.parse(next_page_resp, RawList))
+                current_page = await responses.read_response_payload(next_page_resp, ScryList[_T])

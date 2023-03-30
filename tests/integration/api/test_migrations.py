@@ -1,7 +1,9 @@
+"""Integration tests for aioscryfall.api.migrations."""
+
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from aioscryfall import migrations
+from aioscryfall.api import migrations
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession

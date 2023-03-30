@@ -50,6 +50,11 @@ follow_imports = "normal"
 disallow_untyped_defs = true
 allow_untyped_globals = false
 
+[tool.flake8]
+ignore = ["E203", "E501", "F401", "W503"]
+max_complexity = 10
+exclude = [".git", "__pycache__", "build", "dist"]
+
 [tool.pytest.ini_options]
 markers = [
     "integration: marks tests as integration tests (deselected by default; select with '-m integration')",
@@ -89,7 +94,6 @@ select = [
   "D",
   "UP",
   "YTT",
-  "ANN",
   "S",
   "BLE",
   "FBT",
@@ -120,6 +124,8 @@ select = [
 ]
 ignore = [
   "E501",  # line too long, handled by black
+  "S105",  # too many password flase positives
+  "D107",  # Prefer class docstring on class, not __init__()
 ]
 
 [tool.ruff.per-file-ignores]
@@ -127,10 +133,11 @@ ignore = [
 "tests/**/*" = [
   "S101",  # tests should use assert
   "PLR2004",  # tests may use magic constants
+  "D101",  # test classes may have missing docstrings
+  "D102",  # test methods may have missing docstrings
+  "D103",  # test functions may have missing docstrings
 ]
 
 [tool.ruff.isort]
 known-first-party = ["aioscryfall"]
 
-[tool.ruff.flake8-tidy-imports]
-ban-relative-imports = "all"

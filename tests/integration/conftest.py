@@ -1,3 +1,5 @@
+"""Pytest configuration for integration tests."""
+
 import asyncio
 from typing import TYPE_CHECKING
 
@@ -7,12 +9,10 @@ from aiohttp import ClientSession
 
 if TYPE_CHECKING:
     from asyncio import AbstractEventLoop
-    from typing import AsyncGenerator, Generator
-
-    from pytest import Config, Item, Session
+    from collections.abc import AsyncGenerator, Generator
 
 
-def pytest_collection_modifyitems(items: list["Item"]) -> None:
+def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
     """Mark all tests in this folder as integration tests."""
     for item in items:
         item.add_marker("integration")

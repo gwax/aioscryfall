@@ -9,20 +9,27 @@ from uuid import UUID
 
 import msgspec.json
 
+from aioscryfall.models.cards import ScryCard
+from aioscryfall.models.catalogs import ScryCatalog
+from aioscryfall.models.lists import ScryList
+
 from . import responses
-from .models import Card, Catalog, List
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 
 class UniqueMode(Enum):
+    """Unique mode for card search."""
+
     CARDS = "cards"  # default
     ART = "art"
     PRINTS = "prints"
 
 
 class SortOrdering(Enum):
+    """Sort ordering for card search."""
+
     NAME = "name"
     SET = "set"
     RELEASED = "released"
@@ -41,6 +48,8 @@ class SortOrdering(Enum):
 
 
 class SortDirection(Enum):
+    """Sort direction for card search."""
+
     AUTO = "auto"  # default
     ASC = "asc"
     DESC = "desc"
@@ -57,7 +66,7 @@ async def search(
     include_multilingual: bool | None = None,
     include_variations: bool | None = None,
     page: int | None = None,
-) -> List[Card]:
+) -> ScryList[ScryCard]:
     """Client implementation for the Scryfall API's /cards/search endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/search
@@ -80,7 +89,7 @@ async def search(
         params["page"] = str(page)
 
     async with session.get(url, params=params) as resp:
-        return await responses.parse(resp, List[Card])
+        return await responses.read_response_payload(resp, ScryList[ScryCard])
 
 
 @overload
@@ -89,7 +98,7 @@ async def named(
     *,
     exact: str,
     set_code: str | None = None,
-) -> Card:
+) -> ScryCard:
     ...
 
 
@@ -99,7 +108,7 @@ async def named(
     *,
     fuzzy: str,
     set_code: str | None = None,
-) -> Card:
+) -> ScryCard:
     ...
 
 
@@ -109,13 +118,14 @@ async def named(
     exact: str | None = None,
     fuzzy: str | None = None,
     set_code: str | None = None,
-) -> Card:
+) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/named endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/named
     """
-    if exact is None and fuzzy is None:
-        raise ValueError("Must specify one of exact or fuzzy")
+    if (exact is None and fuzzy is None) or (exact is not None and fuzzy is not None):
+        msg = "Must specify one and only one of exact or fuzzy"
+        raise ValueError(msg)
 
     url = "https://api.scryfall.com/cards/named"
     params = {}
@@ -127,12 +137,12 @@ async def named(
         params["set"] = set_code
 
     async with session.get(url, params=params) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
 async def autocomplete(
     session: "ClientSession", query: str, *, include_extras: bool | None = None
-) -> Catalog:
+) -> ScryCatalog:
     """Client implementation for the Scryfall API's /cards/autocomplete endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/autocomplete
@@ -143,10 +153,10 @@ async def autocomplete(
         params["include_extras"] = "true" if include_extras else "false"
 
     async with session.get(url, params=params) as resp:
-        return await responses.parse(resp, Catalog)
+        return await responses.read_response_payload(resp, ScryCatalog)
 
 
-async def random(session: "ClientSession", *, query: str | None = None) -> Card:
+async def random(session: "ClientSession", *, query: str | None = None) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/random endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/random
@@ -157,41 +167,57 @@ async def random(session: "ClientSession", *, query: str | None = None) -> Card:
         params["q"] = query
 
     async with session.get(url, params=params) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
 class IdCardIdentifier(TypedDict):
-    id: UUID
+    """Type definition for a card identifier by ID."""
+
+    id: UUID  # noqa: A003
 
 
 class MtgoIdCardIdentifier(TypedDict):
+    """Type definition for a card identifier by MTGO ID."""
+
     mtgo_id: int
 
 
 class MultiverseIdCardIdentifier(TypedDict):
+    """Type definition for a card identifier by Multiverse ID."""
+
     multiverse_id: int
 
 
 class OracleIdCardIdentifier(TypedDict):
+    """Type definition for a card identifier by Oracle ID."""
+
     oracle_id: UUID
 
 
 class IllustrationIdCardIdentifier(TypedDict):
+    """Type definition for a card identifier by illustration ID."""
+
     illustration_id: UUID
 
 
 class NameCardIdentifier(TypedDict):
+    """Type definition for a card identifier by name."""
+
     name: str
 
 
 class NameSetCardIdentifier(TypedDict):
+    """Type definition for a card identifier by name and set."""
+
     name: str
-    set: str
+    set: str  # noqa: A003
 
 
 class CollectorNumberSetCardIdentifier(TypedDict):
+    """Type definition for a card identifier by collector number and set."""
+
     collector_number: str
-    set: str
+    set: str  # noqa: A003
 
 
 CardIdentifier: TypeAlias = (
@@ -206,7 +232,9 @@ CardIdentifier: TypeAlias = (
 )
 
 
-async def collection(session: "ClientSession", identifiers: list[CardIdentifier]) -> List[Card]:
+async def collection(
+    session: "ClientSession", identifiers: list[CardIdentifier]
+) -> ScryList[ScryCard]:
     """Client implementation for the Scryfall API's /cards/collection endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/collection
@@ -215,9 +243,8 @@ async def collection(session: "ClientSession", identifiers: list[CardIdentifier]
     headers = {"Content-Type": "application/json"}
     body = {"identifiers": identifiers}
     data = msgspec.json.encode(body)
-    print(body, msgspec.json.encode(body))
     async with session.post(url, headers=headers, data=data) as resp:
-        return await responses.parse(resp, List[Card])
+        return await responses.read_response_payload(resp, ScryList[ScryCard])
 
 
 async def set_code_and_number(
@@ -226,7 +253,7 @@ async def set_code_and_number(
     collector_number: str,
     *,
     lang: str | None = None,
-) -> Card:
+) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/:code/:number(/:lang) endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/collector
@@ -235,64 +262,64 @@ async def set_code_and_number(
     if lang is not None:
         url += f"/{lang}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
-async def multiverse_id(session: "ClientSession", multiverse_id: int) -> Card:
+async def multiverse_id(session: "ClientSession", multiverse_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/multiverse/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/multiverse
     """
     url = f"https://api.scryfall.com/cards/multiverse/{multiverse_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
-async def mtgo_id(session: "ClientSession", mtgo_id: int) -> Card:
+async def mtgo_id(session: "ClientSession", mtgo_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/mtgo/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/mtgo
     """
     url = f"https://api.scryfall.com/cards/mtgo/{mtgo_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
-async def arena_id(session: "ClientSession", arena_id: int) -> Card:
+async def arena_id(session: "ClientSession", arena_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/arena/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/arena
     """
     url = f"https://api.scryfall.com/cards/arena/{arena_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
-async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> Card:
+async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/tcgplayer/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/tcgplayer
     """
     url = f"https://api.scryfall.com/cards/tcgplayer/{tcgplayer_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
-async def cardmarket_id(session: "ClientSession", cardmarket_id: int) -> Card:
+async def cardmarket_id(session: "ClientSession", cardmarket_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/cardmarket/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/cardmarket
     """
     url = f"https://api.scryfall.com/cards/cardmarket/{cardmarket_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)
 
 
-async def get(session: "ClientSession", scryfall_id: UUID) -> Card:
+async def get(session: "ClientSession", scryfall_id: UUID) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/get
     """
     url = f"https://api.scryfall.com/cards/{scryfall_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Card)
+        return await responses.read_response_payload(resp, ScryCard)

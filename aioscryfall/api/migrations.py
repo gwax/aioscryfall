@@ -5,8 +5,10 @@ Documentation: https://scryfall.com/docs/api/migrations
 
 from typing import TYPE_CHECKING
 
+from aioscryfall.models.lists import ScryList
+from aioscryfall.models.migrations import ScryMigration
+
 from . import responses
-from .models import List, Migration
 
 if TYPE_CHECKING:
     from uuid import UUID
@@ -14,21 +16,21 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 
-async def all_migrations(session: "ClientSession") -> List[Migration]:
+async def all_migrations(session: "ClientSession") -> ScryList[ScryMigration]:
     """Client implementation for the Scryfall API's /migrations endpoint.
 
     Documentation: https://scryfall.com/docs/api/migrations/all
     """
     url = "https://api.scryfall.com/migrations"
     async with session.get(url) as resp:
-        return await responses.parse(resp, List[Migration])
+        return await responses.read_response_payload(resp, ScryList[ScryMigration])
 
 
-async def get(session: "ClientSession", scryfall_id: "UUID") -> Migration:
+async def get(session: "ClientSession", scryfall_id: "UUID") -> ScryMigration:
     """Client implementation for the Scryfall API's /migrations/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/migrations/id
     """
     url = f"https://api.scryfall.com/migrations/{scryfall_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, Migration)
+        return await responses.read_response_payload(resp, ScryMigration)

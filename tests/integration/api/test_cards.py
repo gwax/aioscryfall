@@ -1,12 +1,14 @@
+"""Integration tests for aioscryfall.api.cards."""
+
 from typing import TYPE_CHECKING
 from uuid import UUID
 
 import pytest
 
-from aioscryfall import cards
-from aioscryfall.cards import CardIdentifier, SortDirection, SortOrdering, UniqueMode
+from aioscryfall.api import cards
+from aioscryfall.api.cards import CardIdentifier, SortDirection, SortOrdering, UniqueMode
 from aioscryfall.errors import APIError
-from aioscryfall.models import Card, CardLayout
+from aioscryfall.models.cards import ScryCard, ScryCardLayout
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
@@ -17,10 +19,10 @@ class TestSearch:
         result = await cards.search(client_session, "alexandria (game:paper)")
         [card] = result.data
         assert card.name == "Library of Alexandria"
-        assert card.set.upper() == "ARN"
+        assert card.set_.upper() == "ARN"
 
     @pytest.mark.parametrize(
-        "query, mode, expected_count",
+        ("query", "mode", "expected_count"),
         [
             ('!"Thallid" (game:paper)', None, 1),
             ('!"Thallid" (game:paper)', UniqueMode.CARDS, 1),
@@ -39,7 +41,7 @@ class TestSearch:
         assert len(result.data) == expected_count
 
     @pytest.mark.parametrize(
-        "query, ordering, direction, expected_sets_and_numbers",
+        ("query", "ordering", "direction", "expected_sets_and_numbers"),
         [
             (
                 "orcish lumberjack (game:paper)",
@@ -82,7 +84,7 @@ class TestSearch:
             order=ordering,
             direction=direction,
         )
-        sets_and_numbers = [(card.set, card.collector_number) for card in result.data]
+        sets_and_numbers = [(card.set_, card.collector_number) for card in result.data]
         assert sets_and_numbers == expected_sets_and_numbers
 
     async def test_include_extras(self, client_session: "ClientSession") -> None:
@@ -115,10 +117,12 @@ class TestSearch:
             "Tazeem",
         }
         assert all(
-            card.layout == CardLayout.PLANAR for card in result_true.data if card.name == "Tazeem"
+            card.layout == ScryCardLayout.PLANAR
+            for card in result_true.data
+            if card.name == "Tazeem"
         )
         assert all(
-            card.layout == CardLayout.ART_SERIES
+            card.layout == ScryCardLayout.ART_SERIES
             for card in result_true.data
             if card.name == "Tazeem Roilmage // Tazeem Roilmage"
         )
@@ -133,7 +137,8 @@ class TestSearch:
         assert len(result_page_none.data) == 175
         assert result_page_none.has_more
         assert result_page_none.next_page is not None
-        assert isinstance(result_page_none.total_cards, int) and result_page_none.total_cards > 700
+        assert isinstance(result_page_none.total_cards, int)
+        assert result_page_none.total_cards > 700
 
         result_page_three = await cards.search(
             client_session, '!"Forest"', unique=UniqueMode.PRINTS, page=3
@@ -150,15 +155,14 @@ class TestNamed:
 
         card2 = await cards.named(client_session, exact="orcish lumberjack", set_code="ice")
         assert card2.name == "Orcish Lumberjack"
-        assert card2.set == "ice"
+        assert card2.set_ == "ice"
 
     async def test_exact_failure(self, client_session: "ClientSession") -> None:
         with pytest.raises(APIError) as err:
             await cards.named(client_session, exact="library of alexandria", set_code="ice")
         assert err.value.status == err.value.error.status == 404
-        assert err.value.error.details is not None and err.value.error.details.startswith(
-            "No cards found matching"
-        )
+        assert err.value.error.details is not None
+        assert err.value.error.details.startswith("No cards found matching")
 
     async def test_fuzzy_success(self, client_session: "ClientSession") -> None:
         card = await cards.named(client_session, fuzzy="jace bleren")
@@ -166,15 +170,14 @@ class TestNamed:
 
         card = await cards.named(client_session, fuzzy="jace", set_code="wwk")
         assert card.name == "Jace, the Mind Sculptor"
-        assert card.set == "wwk"
+        assert card.set_ == "wwk"
 
     async def test_fuzzy_failure(self, client_session: "ClientSession") -> None:
         with pytest.raises(APIError) as err:
             await cards.named(client_session, fuzzy="jace")
         assert err.value.status == err.value.error.status == 404
-        assert err.value.error.details is not None and err.value.error.details.startswith(
-            "Too many cards match"
-        )
+        assert err.value.error.details is not None
+        assert err.value.error.details.startswith("Too many cards match")
 
 
 async def test_autocomplete(client_session: "ClientSession") -> None:
@@ -188,7 +191,7 @@ async def test_autocomplete(client_session: "ClientSession") -> None:
 
 async def test_random(client_session: "ClientSession") -> None:
     result = await cards.random(client_session)
-    assert isinstance(result, Card)
+    assert isinstance(result, ScryCard)
 
 
 @pytest.mark.parametrize(
@@ -222,7 +225,7 @@ async def test_collection(
     expected_ids: list[UUID],
 ) -> None:
     result = await cards.collection(client_session, identifiers)
-    assert [card.id for card in result.data] == expected_ids
+    assert [card.id_ for card in result.data] == expected_ids
 
 
 async def test_set_code_and_number(

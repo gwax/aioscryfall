@@ -1,8 +1,8 @@
-"""Integration tests for aioscryfall.catalogs."""
+"""Integration tests for aioscryfall.api.catalogs."""
 
 from typing import TYPE_CHECKING
 
-from aioscryfall import catalogs
+from aioscryfall.api import catalogs
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession

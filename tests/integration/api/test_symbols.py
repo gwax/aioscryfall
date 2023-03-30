@@ -1,10 +1,12 @@
+"""Integration tests for aioscryfall.api.symbols."""
+
 from typing import TYPE_CHECKING
 
 import pytest
 
-from aioscryfall import symbols
+from aioscryfall.api import symbols
 from aioscryfall.errors import APIError
-from aioscryfall.models import Color
+from aioscryfall.models.common import ScryColor
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
@@ -20,7 +22,7 @@ async def test_all_card_symbols(client_session: "ClientSession") -> None:
 async def test_parse_mana(client_session: "ClientSession") -> None:
     result = await symbols.parse_mana(client_session, "1GU")
     assert result.cost == "{1}{G}{U}"
-    assert result.colors == [Color.BLUE, Color.GREEN]
+    assert result.colors == [ScryColor.BLUE, ScryColor.GREEN]
     assert result.cmc == 3
 
 

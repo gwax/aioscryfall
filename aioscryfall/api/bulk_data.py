@@ -3,6 +3,7 @@
 Documentation: https://scryfall.com/docs/api/bulk-data
 """
 
+import gc
 import gzip
 import os
 from contextvars import ContextVar
@@ -12,8 +13,10 @@ import appdirs
 import msgspec
 from requests_cache import CachedSession, SerializerPipeline, Stage, pickle_serializer
 
+from aioscryfall.models.bulk import ScryBulkData
+from aioscryfall.models.lists import ScryList, ScryListable
+
 from . import responses
-from .models import BulkData, List, Listable
 
 if TYPE_CHECKING:
     from uuid import UUID
@@ -46,37 +49,38 @@ def _get_requests_session() -> CachedSession:
     return cache
 
 
-async def all_bulk_data(session: "ClientSession") -> List[BulkData]:
+async def all_bulk_data(session: "ClientSession") -> ScryList[ScryBulkData]:
     """Client implementation for the Scryfall API's /bulk-data endpoint.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/all
     """
     url = "https://api.scryfall.com/bulk-data"
     async with session.get(url) as resp:
-        return await responses.parse(resp, List[BulkData])
+        return await responses.read_response_payload(resp, ScryList[ScryBulkData])
 
 
-async def get(session: "ClientSession", scryfall_id: "UUID") -> BulkData:
+async def get(session: "ClientSession", scryfall_id: "UUID") -> ScryBulkData:
     """Client implementation for the Scryfall API's /bulk-data/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/id
     """
     url = f"https://api.scryfall.com/bulk-data/{scryfall_id}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, BulkData)
+        return await responses.read_response_payload(resp, ScryBulkData)
 
 
-async def bulk_data_type(session: "ClientSession", bulk_data_type: str) -> BulkData:
+async def bulk_data_type(session: "ClientSession", type_: str) -> ScryBulkData:
     """Client implementation for the Scryfall API's /bulk-data/:type endpoint.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/type
     """
-    url = f"https://api.scryfall.com/bulk-data/{bulk_data_type}"
+    url = f"https://api.scryfall.com/bulk-data/{type_}"
     async with session.get(url) as resp:
-        return await responses.parse(resp, BulkData)
+        return await responses.read_response_payload(resp, ScryBulkData)
 
 
-async def fetch(bulk_data: BulkData) -> list[Listable]:
+# TODO: this should be on the client, not in the low level api code
+async def fetch(bulk_data: ScryBulkData) -> list[ScryListable]:
     """Fetch and parse a given bulk data file.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/files
@@ -87,4 +91,9 @@ async def fetch(bulk_data: BulkData) -> list[Listable]:
     session = _get_requests_session()
     response = session.get(bulk_data.download_uri)
     response.raise_for_status()
-    return msgspec.json.decode(response.content, type=list[Listable])
+    try:
+        gc.disable()
+        item_list = msgspec.json.decode(response.content, type=list[ScryListable])
+    finally:
+        gc.enable()
+    return item_list
