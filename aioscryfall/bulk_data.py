@@ -20,9 +20,7 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
 
-BULK_FILE_CACHE: ContextVar[CachedSession | None] = ContextVar(
-    "BULK_FILE_CACHE", default=None
-)
+BULK_FILE_CACHE: ContextVar[CachedSession | None] = ContextVar("BULK_FILE_CACHE", default=None)
 
 
 def _get_requests_session() -> CachedSession:

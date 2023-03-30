@@ -10,9 +10,7 @@ if TYPE_CHECKING:
     from aiohttp import ClientResponse
     from msgspec.json import Decoder
 
-DECODER_CACHE: ContextVar[dict[Type, "Decoder"]] = ContextVar(
-    "DECODER_CACHE", default={}
-)
+DECODER_CACHE: ContextVar[dict[Type, "Decoder"]] = ContextVar("DECODER_CACHE", default={})
 
 
 def _get_decoder(type_: Type) -> "Decoder":

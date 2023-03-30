@@ -115,9 +115,7 @@ class TestSearch:
             "Tazeem",
         }
         assert all(
-            card.layout == CardLayout.PLANAR
-            for card in result_true.data
-            if card.name == "Tazeem"
+            card.layout == CardLayout.PLANAR for card in result_true.data if card.name == "Tazeem"
         )
         assert all(
             card.layout == CardLayout.ART_SERIES
@@ -135,10 +133,7 @@ class TestSearch:
         assert len(result_page_none.data) == 175
         assert result_page_none.has_more
         assert result_page_none.next_page is not None
-        assert (
-            isinstance(result_page_none.total_cards, int)
-            and result_page_none.total_cards > 700
-        )
+        assert isinstance(result_page_none.total_cards, int) and result_page_none.total_cards > 700
 
         result_page_three = await cards.search(
             client_session, '!"Forest"', unique=UniqueMode.PRINTS, page=3
@@ -153,21 +148,16 @@ class TestNamed:
         card = await cards.named(client_session, exact="library of alexandria")
         assert card.name == "Library of Alexandria"
 
-        card2 = await cards.named(
-            client_session, exact="orcish lumberjack", set_code="ice"
-        )
+        card2 = await cards.named(client_session, exact="orcish lumberjack", set_code="ice")
         assert card2.name == "Orcish Lumberjack"
         assert card2.set == "ice"
 
     async def test_exact_failure(self, client_session: "ClientSession") -> None:
         with pytest.raises(APIError) as err:
-            await cards.named(
-                client_session, exact="library of alexandria", set_code="ice"
-            )
+            await cards.named(client_session, exact="library of alexandria", set_code="ice")
         assert err.value.status == err.value.error.status == 404
-        assert (
-            err.value.error.details is not None
-            and err.value.error.details.startswith("No cards found matching")
+        assert err.value.error.details is not None and err.value.error.details.startswith(
+            "No cards found matching"
         )
 
     async def test_fuzzy_success(self, client_session: "ClientSession") -> None:
@@ -182,9 +172,8 @@ class TestNamed:
         with pytest.raises(APIError) as err:
             await cards.named(client_session, fuzzy="jace")
         assert err.value.status == err.value.error.status == 404
-        assert (
-            err.value.error.details is not None
-            and err.value.error.details.startswith("Too many cards match")
+        assert err.value.error.details is not None and err.value.error.details.startswith(
+            "Too many cards match"
         )
 
 
@@ -203,7 +192,7 @@ async def test_random(client_session: "ClientSession") -> None:
 
 
 @pytest.mark.parametrize(
-    "identifiers, expected_ids",
+    ("identifiers", "expected_ids"),
     [
         (
             [
@@ -269,7 +258,5 @@ async def test_cardmarket_id(client_session: "ClientSession") -> None:
 
 
 async def test_get(client_session: "ClientSession") -> None:
-    result = await cards.get(
-        client_session, UUID("f295b713-1d6a-43fd-910d-fb35414bf58a")
-    )
+    result = await cards.get(client_session, UUID("f295b713-1d6a-43fd-910d-fb35414bf58a"))
     assert result.name == "Dusk // Dawn"

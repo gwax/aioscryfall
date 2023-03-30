@@ -18,9 +18,7 @@ async def test_bulk_data_endpoints(client_session: "ClientSession") -> None:
     default_cards_bulk2 = await bulk_data.get(client_session, scryfall_id)
     assert default_cards_bulk2 == default_cards_bulk
 
-    default_cards_bulk3 = await bulk_data.bulk_data_type(
-        client_session, "default_cards"
-    )
+    default_cards_bulk3 = await bulk_data.bulk_data_type(client_session, "default_cards")
     assert default_cards_bulk3 == default_cards_bulk
 
 

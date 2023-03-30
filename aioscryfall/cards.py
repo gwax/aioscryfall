@@ -206,9 +206,7 @@ CardIdentifier: TypeAlias = (
 )
 
 
-async def collection(
-    session: "ClientSession", identifiers: list[CardIdentifier]
-) -> List[Card]:
+async def collection(session: "ClientSession", identifiers: list[CardIdentifier]) -> List[Card]:
     """Client implementation for the Scryfall API's /cards/collection endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/collection

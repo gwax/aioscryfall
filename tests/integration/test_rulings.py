@@ -8,9 +8,7 @@ if TYPE_CHECKING:
 
 
 async def test_card(client_session: "ClientSession") -> None:
-    result = await rulings.card(
-        client_session, UUID("70496f16-c4c0-4c03-beef-454eb4824cd1")
-    )
+    result = await rulings.card(client_session, UUID("70496f16-c4c0-4c03-beef-454eb4824cd1"))
     assert [ruling.comment for ruling in result.data] == [
         "Because the first ability requires a target, it "
         + "is not a mana ability. It uses the stack and can "

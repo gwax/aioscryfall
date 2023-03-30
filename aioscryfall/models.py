@@ -273,9 +273,7 @@ class RelatedCard(
     uri: str
 
 
-class CardFace(
-    Struct, tag_field="object", tag="card_face", kw_only=True, omit_defaults=True
-):
+class CardFace(Struct, tag_field="object", tag="card_face", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/cards#card-face-objects"""
 
     artist: str | None = None
@@ -402,9 +400,7 @@ class Card(Struct, tag_field="object", tag="card", kw_only=True, omit_defaults=T
     preview: CardPreviewBlock | None = None
 
 
-class BulkData(
-    Struct, tag_field="object", tag="bulk_data", kw_only=True, omit_defaults=True
-):
+class BulkData(Struct, tag_field="object", tag="bulk_data", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/bulk-data"""
 
     id: UUID
@@ -419,9 +415,7 @@ class BulkData(
     content_encoding: str
 
 
-class Migration(
-    Struct, tag_field="object", tag="migration", kw_only=True, omit_defaults=True
-):
+class Migration(Struct, tag_field="object", tag="migration", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/migrations"""
 
     id: UUID
@@ -433,9 +427,7 @@ class Migration(
     note: str | None = None
 
 
-class Catalog(
-    Struct, tag_field="object", tag="catalog", kw_only=True, omit_defaults=True
-):
+class Catalog(Struct, tag_field="object", tag="catalog", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/catalog"""
 
     uri: str | None = None
@@ -443,9 +435,7 @@ class Catalog(
     data: list[str]
 
 
-class Ruling(
-    Struct, tag_field="object", tag="ruling", kw_only=True, omit_defaults=True
-):
+class Ruling(Struct, tag_field="object", tag="ruling", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/rulings"""
 
     oracle_id: UUID
@@ -454,9 +444,7 @@ class Ruling(
     comment: str
 
 
-class CardSymbol(
-    Struct, tag_field="object", tag="card_symbol", kw_only=True, omit_defaults=True
-):
+class CardSymbol(Struct, tag_field="object", tag="card_symbol", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/card-symbols"""
 
     symbol: str
@@ -472,9 +460,7 @@ class CardSymbol(
     svg_uri: str | None = None
 
 
-class ManaCost(
-    Struct, tag_field="object", tag="mana_cost", kw_only=True, omit_defaults=True
-):
+class ManaCost(Struct, tag_field="object", tag="mana_cost", kw_only=True, omit_defaults=True):
     """Model for https://scryfall.com/docs/api/card-symbols/parse-mana"""
 
     cost: str
