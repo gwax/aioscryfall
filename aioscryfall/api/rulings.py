@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 
-async def card(session: "ClientSession", scryfall_id: "UUID") -> ScryList[ScryRuling]:
+async def getby_card_id(session: "ClientSession", scryfall_id: "UUID") -> ScryList[ScryRuling]:
     """Client implementation for the Scryfall API's /cards/:id/rulings endpoint.
 
     Documentation: https://scryfall.com/docs/api/rulings/card
@@ -26,7 +26,9 @@ async def card(session: "ClientSession", scryfall_id: "UUID") -> ScryList[ScryRu
         return await responses.read_response_payload(resp, ScryList[ScryRuling])
 
 
-async def multiverse_id(session: "ClientSession", multiverse_id: int) -> ScryList[ScryRuling]:
+async def getby_multiverse_id(
+    session: "ClientSession", multiverse_id: int
+) -> ScryList[ScryRuling]:
     """Client implementation for the Scryfall API's /cards/multiverse/:id/rulings endpoint.
 
     Documentation: https://scryfall.com/docs/api/rulings/multiverse
@@ -36,7 +38,7 @@ async def multiverse_id(session: "ClientSession", multiverse_id: int) -> ScryLis
         return await responses.read_response_payload(resp, ScryList[ScryRuling])
 
 
-async def mtgo_id(session: "ClientSession", mtgo_id: int) -> ScryList[ScryRuling]:
+async def getby_mtgo_id(session: "ClientSession", mtgo_id: int) -> ScryList[ScryRuling]:
     """Client implementation for the Scryfall API's /cards/mtgo/:id/rulings endpoint.
 
     Documentation: https://scryfall.com/docs/api/rulings/mtgo
@@ -46,7 +48,7 @@ async def mtgo_id(session: "ClientSession", mtgo_id: int) -> ScryList[ScryRuling
         return await responses.read_response_payload(resp, ScryList[ScryRuling])
 
 
-async def arena_id(session: "ClientSession", arena_id: int) -> ScryList[ScryRuling]:
+async def getby_arena_id(session: "ClientSession", arena_id: int) -> ScryList[ScryRuling]:
     """Client implementation for the Scryfall API's /cards/arena/:id/rulings endpoint.
 
     Documentation: https://scryfall.com/docs/api/rulings/arena
@@ -56,7 +58,7 @@ async def arena_id(session: "ClientSession", arena_id: int) -> ScryList[ScryRuli
         return await responses.read_response_payload(resp, ScryList[ScryRuling])
 
 
-async def set_code_and_number(
+async def getby_set_code_and_number(
     session: "ClientSession", set_code: str, collector_number: str
 ) -> ScryList[ScryRuling]:
     """Client implementation for the Scryfall API's /cards/:set/:number/rulings endpoint.

@@ -10,7 +10,9 @@ if TYPE_CHECKING:
 
 
 async def test_card(client_session: "ClientSession") -> None:
-    result = await rulings.card(client_session, UUID("70496f16-c4c0-4c03-beef-454eb4824cd1"))
+    result = await rulings.getby_card_id(
+        client_session, UUID("70496f16-c4c0-4c03-beef-454eb4824cd1")
+    )
     assert [ruling.comment for ruling in result.data] == [
         (
             "Because the first ability requires a target, it"
@@ -29,7 +31,7 @@ async def test_card(client_session: "ClientSession") -> None:
 
 
 async def test_multiverse_id(client_session: "ClientSession") -> None:
-    result = await rulings.multiverse_id(client_session, 290529)
+    result = await rulings.getby_multiverse_id(client_session, 290529)
     assert [ruling.comment for ruling in result.data] == [
         (
             "Because the first ability requires a target, it"
@@ -48,7 +50,7 @@ async def test_multiverse_id(client_session: "ClientSession") -> None:
 
 
 async def test_mtgo_id(client_session: "ClientSession") -> None:
-    result = await rulings.mtgo_id(client_session, 46777)
+    result = await rulings.getby_mtgo_id(client_session, 46777)
     assert [ruling.comment for ruling in result.data] == [
         (
             "Because the first ability requires a target, it"
@@ -67,7 +69,7 @@ async def test_mtgo_id(client_session: "ClientSession") -> None:
 
 
 async def test_arena_id(client_session: "ClientSession") -> None:
-    result = await rulings.arena_id(client_session, 82504)
+    result = await rulings.getby_arena_id(client_session, 82504)
     assert [ruling.comment for ruling in result.data] == [
         (
             "Powerstone tokens are a kind of predefined token."
@@ -93,7 +95,7 @@ async def test_arena_id(client_session: "ClientSession") -> None:
 
 
 async def test_set_code_and_number(client_session: "ClientSession") -> None:
-    result = await rulings.set_code_and_number(client_session, "rtr", "213")
+    result = await rulings.getby_set_code_and_number(client_session, "rtr", "213")
     assert [ruling.comment for ruling in result.data] == [
         (
             "Because the first ability requires a target, it"

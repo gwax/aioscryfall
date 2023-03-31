@@ -19,6 +19,7 @@ keywords = [
 license = {text = "MIT"}
 dependencies = [
     "aiohttp",
+    "aiolimiter",
     "appdirs",
     "msgspec",
     "requests-cache",

@@ -247,7 +247,7 @@ async def collection(
         return await responses.read_response_payload(resp, ScryList[ScryCard])
 
 
-async def set_code_and_number(
+async def getby_set_code_and_number(
     session: "ClientSession",
     set_code: str,
     collector_number: str,
@@ -265,7 +265,7 @@ async def set_code_and_number(
         return await responses.read_response_payload(resp, ScryCard)
 
 
-async def multiverse_id(session: "ClientSession", multiverse_id: int) -> ScryCard:
+async def getby_multiverse_id(session: "ClientSession", multiverse_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/multiverse/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/multiverse
@@ -275,7 +275,7 @@ async def multiverse_id(session: "ClientSession", multiverse_id: int) -> ScryCar
         return await responses.read_response_payload(resp, ScryCard)
 
 
-async def mtgo_id(session: "ClientSession", mtgo_id: int) -> ScryCard:
+async def getby_mtgo_id(session: "ClientSession", mtgo_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/mtgo/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/mtgo
@@ -285,7 +285,7 @@ async def mtgo_id(session: "ClientSession", mtgo_id: int) -> ScryCard:
         return await responses.read_response_payload(resp, ScryCard)
 
 
-async def arena_id(session: "ClientSession", arena_id: int) -> ScryCard:
+async def getby_arena_id(session: "ClientSession", arena_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/arena/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/arena
@@ -295,7 +295,7 @@ async def arena_id(session: "ClientSession", arena_id: int) -> ScryCard:
         return await responses.read_response_payload(resp, ScryCard)
 
 
-async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> ScryCard:
+async def getby_tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/tcgplayer/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/tcgplayer
@@ -305,7 +305,7 @@ async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> ScryCard:
         return await responses.read_response_payload(resp, ScryCard)
 
 
-async def cardmarket_id(session: "ClientSession", cardmarket_id: int) -> ScryCard:
+async def getby_cardmarket_id(session: "ClientSession", cardmarket_id: int) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/cardmarket/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/cardmarket
@@ -315,7 +315,7 @@ async def cardmarket_id(session: "ClientSession", cardmarket_id: int) -> ScryCar
         return await responses.read_response_payload(resp, ScryCard)
 
 
-async def get(session: "ClientSession", scryfall_id: UUID) -> ScryCard:
+async def getby_id(session: "ClientSession", scryfall_id: UUID) -> ScryCard:
     """Client implementation for the Scryfall API's /cards/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/cards/get

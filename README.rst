@@ -16,12 +16,14 @@ A minimal use case to get yourself started:
 
     import asyncio
     import aiohttp
-    import aioscryfall.cards
+    from aioscryfall.api.cards import UniqueMode
+    import aioscryfall.client import ScryfallClient
 
     async def get_bolt():
         async with aiohttp.ClientSession() as session:
-            card_list = await aioscryfall.cards.search(session, "lightning bolt")
-            return card_list.data[0]
+            client = ScryfallClient(session)
+            bolts = [c async for c in client.cards.search("lightning bolt", unique=UniqueMode.PRINTS)]
+            return bolts
 
-    bolt = asyncio.run(get_bolt())
-    print(bolt)
+    bolts = asyncio.run(get_bolt())
+    print(len(bolts), bolts[0])

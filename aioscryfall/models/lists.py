@@ -5,7 +5,7 @@ from typing import Generic, Self, TypeAlias, TypeVar, cast
 
 from msgspec import Struct
 
-from .bulk import ScryBulkData
+from .bulk_data import ScryBulkData
 from .cards import ScryCard
 from .catalogs import ScryCatalog
 from .migrations import ScryMigration

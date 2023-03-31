@@ -26,7 +26,7 @@ async def all_sets(session: "ClientSession") -> ScryList[ScrySet]:
         return await responses.read_response_payload(resp, ScryList[ScrySet])
 
 
-async def code(session: "ClientSession", set_code: str) -> ScrySet:
+async def getby_code(session: "ClientSession", set_code: str) -> ScrySet:
     """Client implementation for the Scryfall API's /sets/:code endpoint.
 
     Documentation: https://scryfall.com/docs/api/sets/code
@@ -36,7 +36,7 @@ async def code(session: "ClientSession", set_code: str) -> ScrySet:
         return await responses.read_response_payload(resp, ScrySet)
 
 
-async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> ScrySet:
+async def getby_tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> ScrySet:
     """Client implementation for the Scryfall API's /sets/tcgplayer/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/sets/tcgplayer
@@ -46,7 +46,7 @@ async def tcgplayer_id(session: "ClientSession", tcgplayer_id: int) -> ScrySet:
         return await responses.read_response_payload(resp, ScrySet)
 
 
-async def get(session: "ClientSession", scryfall_id: "UUID") -> ScrySet:
+async def getby_id(session: "ClientSession", scryfall_id: "UUID") -> ScrySet:
     """Client implementation for the Scryfall API's /sets/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/sets/id

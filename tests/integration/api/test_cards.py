@@ -231,35 +231,35 @@ async def test_collection(
 async def test_set_code_and_number(
     client_session: "ClientSession",
 ) -> None:
-    result = await cards.set_code_and_number(client_session, "mrd", "150")
+    result = await cards.getby_set_code_and_number(client_session, "mrd", "150")
     assert result.name == "Chalice of the Void"
 
 
 async def test_multiverse_id(client_session: "ClientSession") -> None:
-    result = await cards.multiverse_id(client_session, 48326)
+    result = await cards.getby_multiverse_id(client_session, 48326)
     assert result.name == "Chalice of the Void"
 
 
 async def test_mtgo_id(client_session: "ClientSession") -> None:
-    result = await cards.mtgo_id(client_session, 19995)
+    result = await cards.getby_mtgo_id(client_session, 19995)
     assert result.name == "Chalice of the Void"
 
 
 async def test_arena_id(client_session: "ClientSession") -> None:
-    result = await cards.arena_id(client_session, 67330)
+    result = await cards.getby_arena_id(client_session, 67330)
     assert result.name == "Yargle, Glutton of Urborg"
 
 
 async def test_tcgplayer_id(client_session: "ClientSession") -> None:
-    result = await cards.tcgplayer_id(client_session, 162145)
+    result = await cards.getby_tcgplayer_id(client_session, 162145)
     assert result.name == "Rona, Disciple of Gix"
 
 
 async def test_cardmarket_id(client_session: "ClientSession") -> None:
-    result = await cards.cardmarket_id(client_session, 379041)
+    result = await cards.getby_cardmarket_id(client_session, 379041)
     assert result.name == "Embodiment of Agonies"
 
 
 async def test_get(client_session: "ClientSession") -> None:
-    result = await cards.get(client_session, UUID("f295b713-1d6a-43fd-910d-fb35414bf58a"))
+    result = await cards.getby_id(client_session, UUID("f295b713-1d6a-43fd-910d-fb35414bf58a"))
     assert result.name == "Dusk // Dawn"

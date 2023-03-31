@@ -3,18 +3,10 @@
 Documentation: https://scryfall.com/docs/api/bulk-data
 """
 
-import gc
-import gzip
-import os
-from contextvars import ContextVar
 from typing import TYPE_CHECKING
 
-import appdirs
-import msgspec
-from requests_cache import CachedSession, SerializerPipeline, Stage, pickle_serializer
-
-from aioscryfall.models.bulk import ScryBulkData
-from aioscryfall.models.lists import ScryList, ScryListable
+from aioscryfall.models.bulk_data import ScryBulkData
+from aioscryfall.models.lists import ScryList
 
 from . import responses
 
@@ -22,31 +14,6 @@ if TYPE_CHECKING:
     from uuid import UUID
 
     from aiohttp import ClientSession
-
-BULK_FILE_CACHE: ContextVar[CachedSession | None] = ContextVar("BULK_FILE_CACHE", default=None)
-
-
-def _get_requests_session() -> CachedSession:
-    cache = BULK_FILE_CACHE.get()
-    if cache is None:
-        cache_dir = appdirs.user_cache_dir("aioscryfall")
-        cache_file = os.path.join(cache_dir, "requests_cache.sqlite")
-        serializer = SerializerPipeline(
-            [
-                pickle_serializer,
-                Stage(dumps=gzip.compress, loads=gzip.decompress),
-            ],
-            is_binary=True,
-        )
-        cache = CachedSession(
-            cache_file,
-            backend="sqlite",
-            serializer=serializer,
-            cache_control=True,
-            expire_after=86400,
-        )
-        BULK_FILE_CACHE.set(cache)
-    return cache
 
 
 async def all_bulk_data(session: "ClientSession") -> ScryList[ScryBulkData]:
@@ -59,7 +26,7 @@ async def all_bulk_data(session: "ClientSession") -> ScryList[ScryBulkData]:
         return await responses.read_response_payload(resp, ScryList[ScryBulkData])
 
 
-async def get(session: "ClientSession", scryfall_id: "UUID") -> ScryBulkData:
+async def getby_id(session: "ClientSession", scryfall_id: "UUID") -> ScryBulkData:
     """Client implementation for the Scryfall API's /bulk-data/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/id
@@ -69,7 +36,7 @@ async def get(session: "ClientSession", scryfall_id: "UUID") -> ScryBulkData:
         return await responses.read_response_payload(resp, ScryBulkData)
 
 
-async def bulk_data_type(session: "ClientSession", type_: str) -> ScryBulkData:
+async def getby_type(session: "ClientSession", type_: str) -> ScryBulkData:
     """Client implementation for the Scryfall API's /bulk-data/:type endpoint.
 
     Documentation: https://scryfall.com/docs/api/bulk-data/type
@@ -77,23 +44,3 @@ async def bulk_data_type(session: "ClientSession", type_: str) -> ScryBulkData:
     url = f"https://api.scryfall.com/bulk-data/{type_}"
     async with session.get(url) as resp:
         return await responses.read_response_payload(resp, ScryBulkData)
-
-
-# TODO: this should be on the client, not in the low level api code
-async def fetch(bulk_data: ScryBulkData) -> list[ScryListable]:
-    """Fetch and parse a given bulk data file.
-
-    Documentation: https://scryfall.com/docs/api/bulk-data/files
-    """
-    # TODO: This should be async but aiohttp-client-cache doesn't support the use of
-    #       etag + If-None-Match to handle Cache-Control and I do not want to implement
-    #       that myself.
-    session = _get_requests_session()
-    response = session.get(bulk_data.download_uri)
-    response.raise_for_status()
-    try:
-        gc.disable()
-        item_list = msgspec.json.decode(response.content, type=list[ScryListable])
-    finally:
-        gc.enable()
-    return item_list

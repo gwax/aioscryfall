@@ -26,7 +26,7 @@ async def all_migrations(session: "ClientSession") -> ScryList[ScryMigration]:
         return await responses.read_response_payload(resp, ScryList[ScryMigration])
 
 
-async def get(session: "ClientSession", scryfall_id: "UUID") -> ScryMigration:
+async def getby_id(session: "ClientSession", scryfall_id: "UUID") -> ScryMigration:
     """Client implementation for the Scryfall API's /migrations/:id endpoint.
 
     Documentation: https://scryfall.com/docs/api/migrations/id

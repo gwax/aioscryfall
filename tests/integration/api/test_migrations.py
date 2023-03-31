@@ -15,5 +15,7 @@ async def test_all_migrations(client_session: "ClientSession") -> None:
 
 
 async def test_get(client_session: "ClientSession") -> None:
-    result = await migrations.get(client_session, UUID("6697b38a-ee19-455c-b24b-d0a659782d8b"))
+    result = await migrations.getby_id(
+        client_session, UUID("6697b38a-ee19-455c-b24b-d0a659782d8b")
+    )
     assert result.note == "Un-rebalanced on Arena"
