@@ -10,6 +10,8 @@ from .base import BaseHandler
 
 
 class MigrationsHandler(BaseHandler):
+    """ScryfallClient handler for migrations APIs."""
+
     async def all_migrations(self) -> AsyncIterable[ScryMigration]:
         """Get all migrations."""
         async with self._client.limiter:

@@ -10,6 +10,8 @@ from .base import BaseHandler
 
 
 class CatalogsHandler(BaseHandler):
+    """ScryfallClient handler for catalogs APIs."""
+
     async def card_names(self) -> list[str]:
         """Get a list of all card names."""
         async with self._client.limiter:
@@ -104,5 +106,4 @@ class CatalogsHandler(BaseHandler):
         """Get a list of all ability words."""
         async with self._client.limiter:
             catalog = await catalogs.ability_words(self._client.session)
-        return catalog.data
         return catalog.data

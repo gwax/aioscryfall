@@ -47,6 +47,8 @@ def _get_requests_session() -> CachedSession:
 
 
 class BulkDataHandler(BaseHandler):
+    """ScryfallClient handler for bulk_data APIs."""
+
     async def all_bulk_data(self) -> AsyncIterable[ScryBulkData]:
         """Get all bulk data."""
         async with self._client.limiter:
@@ -54,9 +56,21 @@ class BulkDataHandler(BaseHandler):
         async for bulk_data_item in self._client.depage_list(first_page):
             yield bulk_data_item
 
+    @overload
+    async def get_bulk_data(self, *, bulk_data_id: UUID) -> ScryBulkData:
+        ...
+
+    @overload
+    async def get_bulk_data(self, *, bulk_data_type: str) -> ScryBulkData:
+        ...
+
     async def get_bulk_data(
-        self, *, bulk_data_id: UUID | None = None, bulk_data_type: str | None = None
+        self,
+        *,
+        bulk_data_id: UUID | None = None,
+        bulk_data_type: str | None = None,
     ) -> ScryBulkData:
+        """Get a single bulk data item."""
         has_identifier = (
             bulk_data_id is not None,
             bulk_data_type is not None,
@@ -71,7 +85,8 @@ class BulkDataHandler(BaseHandler):
                 return await bulk_data.getby_type(self._client.session, bulk_data_type)
             raise ValueError(invalid_args_msg)
 
-    async def fetch(self, bulk_data_item: ScryBulkData) -> list[ScryListable]:
+    async def fetch_contents(self, bulk_data_item: ScryBulkData) -> list[ScryListable]:
+        """Fetch the contents of a bulk data item."""
         # TODO: This should be async but aiohttp-client-cache doesn't support the use of
         #       etag + If-None-Match to handle Cache-Control and I do not want to implement
         #       that myself.

@@ -9,6 +9,8 @@ from .base import BaseHandler
 
 
 class SymbolsHandler(BaseHandler):
+    """ScryfallClient handler for symbols APIs."""
+
     async def all_card_symbols(self) -> AsyncIterable[ScryCardSymbol]:
         """Get all card symbols."""
         async with self._client.limiter:

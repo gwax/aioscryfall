@@ -11,6 +11,8 @@ from .base import BaseHandler
 
 
 class RulingsHandler(BaseHandler):
+    """ScryfallClient handler for rulings APIs."""
+
     @overload
     async def get_rulings(self, *, card_id: UUID) -> AsyncIterable[ScryRuling]:
         ...
@@ -43,6 +45,7 @@ class RulingsHandler(BaseHandler):
         set_code: str | None = None,
         collector_number: str | None = None,
     ) -> Any:  # TODO: why does -> AsyncIterable[ScryRuling] not work here?
+        """Get rulings for a card."""
         has_identifier = (
             card_id is not None,
             multiverse_id is not None,

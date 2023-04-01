@@ -24,6 +24,8 @@ _ListableT_co = TypeVar("_ListableT_co", bound=ScryListable, covariant=True)
 
 
 class ScryfallClient:
+    """ScryfallClient is an asynchronous client for the Scryfall API."""
+
     def __init__(self, session: "ClientSession") -> None:
         self.session = session
         # We limit ourselves to 10 req/s per https://scryfall.com/docs/api#rate-limits-and-good-citizenship

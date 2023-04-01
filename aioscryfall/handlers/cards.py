@@ -14,6 +14,8 @@ if TYPE_CHECKING:
 
 
 class CardsHandler(BaseHandler):
+    """ScryfallClient handler for cards APIs."""
+
     async def search(
         self,
         query: str,
@@ -55,6 +57,7 @@ class CardsHandler(BaseHandler):
         fuzzy: str | None = None,
         set_code: str | None = None,
     ) -> ScryCard:
+        """Get a card by name and, optionally, set."""
         has_identifier = (exact is not None, fuzzy is not None)
         invalid_args_msg = "Exactly one of exact, fuzzy must be specified."
         if len([x for x in has_identifier if x]) != 1:
@@ -80,7 +83,7 @@ class CardsHandler(BaseHandler):
             return await cards.random(self._client.session, query=query)
 
     async def get_collection(self, identifiers: list["CardIdentifier"]) -> AsyncIterable[ScryCard]:
-        """Get a collection of cards by ID."""
+        """Get a collection of cards by various identifiers."""
         async with self._client.limiter:
             first_page = await cards.collection(self._client.session, identifiers)
         async for card in self._client.depage_list(first_page):
@@ -126,6 +129,7 @@ class CardsHandler(BaseHandler):
         cardmarket_id: int | None = None,
         scryfall_id: UUID | None = None,
     ) -> ScryCard:
+        """Get a single card."""
         has_identifier = (
             set_code is not None and collector_number is not None,
             multiverse_id is not None,

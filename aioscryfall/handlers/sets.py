@@ -11,6 +11,8 @@ from .base import BaseHandler
 
 
 class SetsHandler(BaseHandler):
+    """ScryfallClient handler for sets APIs."""
+
     async def all_sets(self) -> AsyncIterable[ScrySet]:
         """Get all sets."""
         async with self._client.limiter:
@@ -37,6 +39,7 @@ class SetsHandler(BaseHandler):
         tcgplayer_id: int | None = None,
         scryfall_id: UUID | None = None,
     ) -> ScrySet:
+        """Get a set by its code, TCGPlayer ID, or Scryfall ID."""
         has_identifier = (
             set_code is not None,
             tcgplayer_id is not None,
