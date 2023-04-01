@@ -9,15 +9,10 @@ import aiolimiter
 from aioscryfall.api import responses
 from aioscryfall.models.lists import ScryList, ScryListable
 
-from .errors import Error
 from .handlers import bulk_data, cards, catalogs, migrations, rulings, sets, symbols
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
-
-
-class ClientReentranceError(Error):
-    """Exception raised when the client is used in a reentrant fashion."""
 
 
 _ListableT_co = TypeVar("_ListableT_co", bound=ScryListable, covariant=True)
