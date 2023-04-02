@@ -1,8 +1,6 @@
 """Synchronous client handler for Scryfall symbols APIs."""
 
 from collections.abc import Iterable
-from typing import overload
-from uuid import UUID
 
 from aioscryfall.models.symbols import ScryCardSymbol, ScryManaCost
 

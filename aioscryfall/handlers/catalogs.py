@@ -1,9 +1,5 @@
 """Client handler for the Scryfall catalogs APIs."""
 
-from collections.abc import AsyncIterable
-from typing import overload
-from uuid import UUID
-
 from aioscryfall.api import catalogs
 
 from .base import BaseHandler

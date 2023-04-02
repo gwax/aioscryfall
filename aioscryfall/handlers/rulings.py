@@ -1,7 +1,7 @@
 """Client handler for the Scryfall rulings APIs."""
 
 from collections.abc import AsyncIterable
-from typing import Any, overload
+from typing import Any, TypeVar, overload
 from uuid import UUID
 
 from aioscryfall.api import rulings
@@ -13,26 +13,25 @@ from .base import BaseHandler
 class RulingsHandler(BaseHandler):
     """ScryfallClient handler for rulings APIs."""
 
+    # TODO: `async def` after https://github.com/python/mypy/issues/14996
     @overload
-    async def get_rulings(self, *, card_id: UUID) -> AsyncIterable[ScryRuling]:
+    def get_rulings(self, *, card_id: UUID) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    async def get_rulings(self, *, multiverse_id: int) -> AsyncIterable[ScryRuling]:
+    def get_rulings(self, *, multiverse_id: int) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    async def get_rulings(self, *, mtgo_id: int) -> AsyncIterable[ScryRuling]:
+    def get_rulings(self, *, mtgo_id: int) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    async def get_rulings(self, *, arena_id: int) -> AsyncIterable[ScryRuling]:
+    def get_rulings(self, *, arena_id: int) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    async def get_rulings(
-        self, *, set_code: str, collector_number: str
-    ) -> AsyncIterable[ScryRuling]:
+    def get_rulings(self, *, set_code: str, collector_number: str) -> AsyncIterable[ScryRuling]:
         ...
 
     async def get_rulings(
@@ -44,7 +43,7 @@ class RulingsHandler(BaseHandler):
         arena_id: int | None = None,
         set_code: str | None = None,
         collector_number: str | None = None,
-    ) -> Any:  # TODO: why does -> AsyncIterable[ScryRuling] not work here?
+    ) -> AsyncIterable[ScryRuling]:
         """Get rulings for a card."""
         has_identifier = (
             card_id is not None,

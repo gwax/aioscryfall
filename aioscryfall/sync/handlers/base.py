@@ -1,12 +1,16 @@
 """Base class for all synchronous handlers."""
 
 import asyncio
-from collections.abc import AsyncIterable, Awaitable, Iterable
-from typing import Callable, TypeVar
+import functools
+from collections.abc import AsyncIterable, Awaitable, Coroutine, Iterable
+from typing import TYPE_CHECKING, Callable, Concatenate, ParamSpec, TypeVar
 
 import aiohttp
 
 from aioscryfall.client import ScryfallClient
+
+if TYPE_CHECKING:
+    from aioscryfall.sync.client import ScryfallSyncClient
 
 _T = TypeVar("_T")
 
@@ -14,14 +18,18 @@ _T = TypeVar("_T")
 class BaseSyncHandler:
     """Base class for all synchronous handlers."""
 
+    def __init__(self, client: "ScryfallSyncClient") -> None:
+        self._client = client
+
     def _result_extract(self, extractor: Callable[[ScryfallClient], Awaitable[_T]]) -> _T:
         """Convert an asynchronous call to ScryfallClient into a synchronous result."""
 
         async def inner() -> _T:
             """Inner function to be called by the event loop."""
-            async with aiohttp.ClientSession() as session:
-                async_client = ScryfallClient(session)
-                return await extractor(async_client)
+            return await extractor(self._client.get_async_client())
+
+        loop = self._client.get_event_loop()
+        return loop.run_until_complete(inner())
 
         return asyncio.run(inner())
 
@@ -32,12 +40,10 @@ class BaseSyncHandler:
 
         async def inner() -> AsyncIterable[_T]:
             """Inner function to be called by the event loop."""
-            async with aiohttp.ClientSession() as session:
-                async_client = ScryfallClient(session)
-                async for item in extractor(async_client):
-                    yield item
+            async for item in extractor(self._client.get_async_client()):
+                yield item
 
-        loop = asyncio.get_event_loop()
+        loop = self._client.get_event_loop()
         async_iterator = aiter(inner())
         while True:
             try:
