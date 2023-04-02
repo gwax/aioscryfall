@@ -1,6 +1,6 @@
 """Client handler for the Scryfall cards APIs."""
 
-from collections.abc import AsyncIterable
+from collections.abc import AsyncIterable, Awaitable
 from typing import TYPE_CHECKING, overload
 from uuid import UUID
 
@@ -43,11 +43,11 @@ class CardsHandler(BaseHandler):
             yield card
 
     @overload
-    async def named(self, *, exact: str, set_code: str | None = None) -> ScryCard:
+    def named(self, *, exact: str, set_code: str | None = None) -> Awaitable[ScryCard]:
         ...
 
     @overload
-    async def named(self, *, fuzzy: str, set_code: str | None = None) -> ScryCard:
+    def named(self, *, fuzzy: str, set_code: str | None = None) -> Awaitable[ScryCard]:
         ...
 
     async def named(
@@ -90,31 +90,31 @@ class CardsHandler(BaseHandler):
             yield card
 
     @overload
-    async def get_card(self, *, set_code: str, collector_number: str) -> ScryCard:
+    def get_card(self, *, set_code: str, collector_number: str) -> Awaitable[ScryCard]:
         ...
 
     @overload
-    async def get_card(self, *, multiverse_id: int) -> ScryCard:
+    def get_card(self, *, multiverse_id: int) -> Awaitable[ScryCard]:
         ...
 
     @overload
-    async def get_card(self, *, mtgo_id: int) -> ScryCard:
+    def get_card(self, *, mtgo_id: int) -> Awaitable[ScryCard]:
         ...
 
     @overload
-    async def get_card(self, *, arena_id: int) -> ScryCard:
+    def get_card(self, *, arena_id: int) -> Awaitable[ScryCard]:
         ...
 
     @overload
-    async def get_card(self, *, tcgplayer_id: int) -> ScryCard:
+    def get_card(self, *, tcgplayer_id: int) -> Awaitable[ScryCard]:
         ...
 
     @overload
-    async def get_card(self, *, cardmarket_id: int) -> ScryCard:
+    def get_card(self, *, cardmarket_id: int) -> Awaitable[ScryCard]:
         ...
 
     @overload
-    async def get_card(self, *, scryfall_id: UUID) -> ScryCard:
+    def get_card(self, *, scryfall_id: UUID) -> Awaitable[ScryCard]:
         ...
 
     async def get_card(

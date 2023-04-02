@@ -3,7 +3,7 @@
 import gc
 import gzip
 import os
-from collections.abc import AsyncIterable
+from collections.abc import AsyncIterable, Awaitable
 from contextvars import ContextVar
 from typing import overload
 from uuid import UUID
@@ -57,11 +57,11 @@ class BulkDataHandler(BaseHandler):
             yield bulk_data_item
 
     @overload
-    async def get_bulk_data(self, *, bulk_data_id: UUID) -> ScryBulkData:
+    def get_bulk_data(self, *, bulk_data_id: UUID) -> Awaitable[ScryBulkData]:
         ...
 
     @overload
-    async def get_bulk_data(self, *, bulk_data_type: str) -> ScryBulkData:
+    def get_bulk_data(self, *, bulk_data_type: str) -> Awaitable[ScryBulkData]:
         ...
 
     async def get_bulk_data(

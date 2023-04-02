@@ -1,6 +1,6 @@
 """Client handler for the Scryfall sets APIs."""
 
-from collections.abc import AsyncIterable
+from collections.abc import AsyncIterable, Awaitable
 from typing import overload
 from uuid import UUID
 
@@ -21,15 +21,15 @@ class SetsHandler(BaseHandler):
             yield set_
 
     @overload
-    async def get_set(self, *, set_code: str) -> ScrySet:
+    def get_set(self, *, set_code: str) -> Awaitable[ScrySet]:
         ...
 
     @overload
-    async def get_set(self, *, tcgplayer_id: int) -> ScrySet:
+    def get_set(self, *, tcgplayer_id: int) -> Awaitable[ScrySet]:
         ...
 
     @overload
-    async def get_set(self, *, scryfall_id: UUID) -> ScrySet:
+    def get_set(self, *, scryfall_id: UUID) -> Awaitable[ScrySet]:
         ...
 
     async def get_set(
