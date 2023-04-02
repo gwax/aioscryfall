@@ -31,8 +31,6 @@ class BaseSyncHandler:
         loop = self._client.get_event_loop()
         return loop.run_until_complete(inner())
 
-        return asyncio.run(inner())
-
     def _iterable_extract(
         self, extractor: Callable[[ScryfallClient], AsyncIterable[_T]]
     ) -> Iterable[_T]:

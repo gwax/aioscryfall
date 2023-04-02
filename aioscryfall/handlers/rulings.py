@@ -13,28 +13,30 @@ from .base import BaseHandler
 class RulingsHandler(BaseHandler):
     """ScryfallClient handler for rulings APIs."""
 
-    # TODO: `async def` after https://github.com/python/mypy/issues/14996
     @overload
-    def get_rulings(self, *, card_id: UUID) -> AsyncIterable[ScryRuling]:
+    async def get_rulings(self, *, card_id: UUID) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    def get_rulings(self, *, multiverse_id: int) -> AsyncIterable[ScryRuling]:
+    async def get_rulings(self, *, multiverse_id: int) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    def get_rulings(self, *, mtgo_id: int) -> AsyncIterable[ScryRuling]:
+    async def get_rulings(self, *, mtgo_id: int) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    def get_rulings(self, *, arena_id: int) -> AsyncIterable[ScryRuling]:
+    async def get_rulings(self, *, arena_id: int) -> AsyncIterable[ScryRuling]:
         ...
 
     @overload
-    def get_rulings(self, *, set_code: str, collector_number: str) -> AsyncIterable[ScryRuling]:
-        ...
-
     async def get_rulings(
+        self, *, set_code: str, collector_number: str
+    ) -> AsyncIterable[ScryRuling]:
+        ...
+
+    # type ignore is to work around https://github.com/python/mypy/issues/14996
+    async def get_rulings(  # type: ignore
         self,
         *,
         card_id: UUID | None = None,

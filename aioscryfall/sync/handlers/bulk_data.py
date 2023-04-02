@@ -1,18 +1,13 @@
 """Synchronous client handler for Scryfall bulk data APIs."""
 
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, overload
+from typing import cast, overload
 from uuid import UUID
 
 from aioscryfall.models.bulk_data import ScryBulkData
 from aioscryfall.models.lists import ScryListable
 
 from .base import BaseSyncHandler
-
-if TYPE_CHECKING:
-    from collections.abc import Awaitable, Callable
-
-    from aioscryfall.client import ScryfallClient
 
 
 class BulkDataSyncHandler(BaseSyncHandler):
@@ -37,26 +32,19 @@ class BulkDataSyncHandler(BaseSyncHandler):
         bulk_data_type: str | None = None,
     ) -> ScryBulkData:
         """Get a single bulk data item."""
-
-        def _id_extractor(id_: UUID) -> "Callable[[ScryfallClient], Awaitable[ScryBulkData]]":
-            def _extractor(async_client: "ScryfallClient") -> "Awaitable[ScryBulkData]":
-                return async_client.bulk_data.get_bulk_data(bulk_data_id=id_)
-
-            return _extractor
-
-        def _type_extractor(type_: str) -> "Callable[[ScryfallClient], Awaitable[ScryBulkData]]":
-            def _extractor(async_client: "ScryfallClient") -> "Awaitable[ScryBulkData]":
-                return async_client.bulk_data.get_bulk_data(bulk_data_type=type_)
-
-            return _extractor
-
         invalid_args_msg = "Exactly one of bulk_data_id, bulk_data_type must be specified."
         if bulk_data_id is None and bulk_data_type is None:
             raise ValueError(invalid_args_msg)
         if bulk_data_id is not None:
-            return self._result_extract(_id_extractor(bulk_data_id))
+            return self._result_extract(
+                # cast is necessary because of https://github.com/python/mypy/issues/2608
+                lambda c: c.bulk_data.get_bulk_data(bulk_data_id=cast(UUID, bulk_data_id))
+            )
         if bulk_data_type is not None:
-            return self._result_extract(_type_extractor(bulk_data_type))
+            return self._result_extract(
+                # cast is necessary because of https://github.com/python/mypy/issues/2608
+                lambda c: c.bulk_data.get_bulk_data(bulk_data_type=cast(str, bulk_data_type))
+            )
         raise ValueError(invalid_args_msg)
 
     def fetch_contents(self, bulk_data_item: ScryBulkData) -> list[ScryListable]:

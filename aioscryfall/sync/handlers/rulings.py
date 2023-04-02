@@ -1,14 +1,13 @@
 """Synchronous client handler for Scryfall rulings APIs."""
 
-from typing import TYPE_CHECKING, overload
+from typing import TYPE_CHECKING, cast, overload
 
 from .base import BaseSyncHandler
 
 if TYPE_CHECKING:
-    from collections.abc import AsyncIterable, Callable, Iterable
+    from collections.abc import Iterable
     from uuid import UUID
 
-    from aioscryfall.client import ScryfallClient
     from aioscryfall.models.rulings import ScryRuling
 
 
@@ -46,50 +45,6 @@ class RulingsSyncHandler(BaseSyncHandler):
         collector_number: str | None = None,
     ) -> "Iterable[ScryRuling]":
         """Get rulings for a card."""
-
-        # TODO: simplify after https://github.com/python/mypy/issues/14997
-        def _card_id_extractor(
-            id_: "UUID",
-        ) -> "Callable[[ScryfallClient], AsyncIterable[ScryRuling]]":
-            def _extractor(async_client: "ScryfallClient") -> "AsyncIterable[ScryRuling]":
-                return async_client.rulings.get_rulings(card_id=id_)
-
-            return _extractor
-
-        def _multiverse_id_extractor(
-            id_: int,
-        ) -> "Callable[[ScryfallClient], AsyncIterable[ScryRuling]]":
-            def _extractor(async_client: "ScryfallClient") -> "AsyncIterable[ScryRuling]":
-                return async_client.rulings.get_rulings(multiverse_id=id_)
-
-            return _extractor
-
-        def _mtgo_id_extractor(
-            id_: int,
-        ) -> "Callable[[ScryfallClient], AsyncIterable[ScryRuling]]":
-            def _extractor(async_client: "ScryfallClient") -> "AsyncIterable[ScryRuling]":
-                return async_client.rulings.get_rulings(mtgo_id=id_)
-
-            return _extractor
-
-        def _arena_id_extractor(
-            id_: int,
-        ) -> "Callable[[ScryfallClient], AsyncIterable[ScryRuling]]":
-            def _extractor(async_client: "ScryfallClient") -> "AsyncIterable[ScryRuling]":
-                return async_client.rulings.get_rulings(arena_id=id_)
-
-            return _extractor
-
-        def _set_code_collector_number_extractor(
-            set_code: str, collector_number: str
-        ) -> "Callable[[ScryfallClient], AsyncIterable[ScryRuling]]":
-            def _extractor(async_client: "ScryfallClient") -> "AsyncIterable[ScryRuling]":
-                return async_client.rulings.get_rulings(
-                    set_code=set_code, collector_number=collector_number
-                )
-
-            return _extractor
-
         has_identifier = (
             card_id is not None,
             multiverse_id is not None,
@@ -101,15 +56,31 @@ class RulingsSyncHandler(BaseSyncHandler):
         if len([x for x in has_identifier if x]) != 1:
             raise ValueError(invalid_args_msg)
         if card_id is not None:
-            return self._iterable_extract(_card_id_extractor(card_id))
+            return self._iterable_extract(
+                # cast is necessary because of https://github.com/python/mypy/issues/2608
+                lambda c: c.rulings.get_rulings(card_id=cast(UUID, card_id))
+            )
         if multiverse_id is not None:
-            return self._iterable_extract(_multiverse_id_extractor(multiverse_id))
+            return self._iterable_extract(
+                # cast is necessary because of https://github.com/python/mypy/issues/2608
+                lambda c: c.rulings.get_rulings(multiverse_id=cast(int, multiverse_id))
+            )
         if mtgo_id is not None:
-            return self._iterable_extract(_mtgo_id_extractor(mtgo_id))
+            return self._iterable_extract(
+                # cast is necessary because of https://github.com/python/mypy/issues/2608
+                lambda c: c.rulings.get_rulings(mtgo_id=cast(int, mtgo_id))
+            )
         if arena_id is not None:
-            return self._iterable_extract(_arena_id_extractor(arena_id))
+            return self._iterable_extract(
+                # cast is necessary because of https://github.com/python/mypy/issues/2608
+                lambda c: c.rulings.get_rulings(arena_id=cast(int, arena_id))
+            )
         if set_code is not None and collector_number is not None:
             return self._iterable_extract(
-                _set_code_collector_number_extractor(set_code, collector_number)
+                lambda c: c.rulings.get_rulings(
+                    # cast is necessary because of https://github.com/python/mypy/issues/2608
+                    set_code=cast(str, set_code),
+                    collector_number=cast(str, collector_number),
+                )
             )
         raise ValueError(invalid_args_msg)
