@@ -3,7 +3,14 @@
 from msgspec import Struct
 
 
-class ScryError(Struct, tag_field="object", tag="error", kw_only=True, rename={"type_": "type"}):
+class ScryError(
+    Struct,
+    tag_field="object",
+    tag="error",
+    kw_only=True,
+    omit_defaults=True,
+    rename={"type_": "type"},
+):
     """A ScryError object represents a failure to find information or understand the input you provided to the API."""
 
     status: int

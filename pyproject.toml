@@ -32,6 +32,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "aiofiles",
     "aioresponses",
     "black",
     "doc8",
@@ -42,6 +43,7 @@ dev = [
     "pytest",
     "pytest-asyncio",
     "ruff",
+    "types-aiofiles",
 ]
 
 [tool.mypy]

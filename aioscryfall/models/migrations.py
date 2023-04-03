@@ -15,7 +15,12 @@ class ScryMigrationStrategy(str, Enum):
 
 
 class ScryMigration(
-    Struct, tag_field="object", tag="migration", kw_only=True, rename={"id_": "id"}
+    Struct,
+    tag_field="object",
+    tag="migration",
+    kw_only=True,
+    omit_defaults=True,
+    rename={"id_": "id"},
 ):
     """A ScryMigration represents information about a card object that has been migrated to a new object."""
 

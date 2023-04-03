@@ -1,0 +1,11 @@
+{
+  "object": "catalog",
+  "total_values": 5,
+  "data": [
+    "Snow-Covered Swamp",
+    "Snow-Covered Forest",
+    "Snow-Covered Island",
+    "Snow-Covered Plains",
+    "Snow-Covered Mountain"
+  ]
+}

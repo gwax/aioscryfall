@@ -25,7 +25,7 @@ ScryListable: TypeAlias = (
 )
 
 
-class RawScryList(Struct, tag_field="object", tag="list", kw_only=True):
+class RawScryList(Struct, tag_field="object", tag="list", kw_only=True, omit_defaults=True):
     """A RawScryList object represents an untyped, requested sequence of other objects.
 
     Due to a lack of support for generics in msgspec, this class is used for decoding
@@ -57,7 +57,7 @@ class ScryList(Generic[_T]):
     warnings: list[str] | None = None
 
     @classmethod
-    def from_raw(cls, raw: RawScryList) -> Self:
+    def from_raw(cls, raw: "RawScryList") -> Self:
         """Create a typed ScryList from a RawScryList."""
         return cls(
             data=cast(list[_T], raw.data),

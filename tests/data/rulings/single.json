@@ -1,0 +1,20 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "ruling",
+      "oracle_id": "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
+      "source": "wotc",
+      "published_at": "2016-06-08",
+      "comment": "Because the first ability requires a target, it is not a mana ability. It uses the stack and can be responded to."
+    },
+    {
+      "object": "ruling",
+      "oracle_id": "22f1a4a4-c423-4d1c-8775-0ed604a9fa51",
+      "source": "wotc",
+      "published_at": "2016-06-08",
+      "comment": "If the target of any of Deathrite Shaman’s three abilities is an illegal target when that ability tries to resolve, it won’t resolve and none of its effects will happen. You won’t add mana to your mana pool, no opponent will lose life, or you won’t gain life, as appropriate."
+    }
+  ],
+  "has_more": false
+}

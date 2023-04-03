@@ -1,0 +1,138 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "card_symbol",
+      "symbol": "{T}",
+      "english": "tap this permanent",
+      "transposable": false,
+      "represents_mana": false,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": false,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "ocT",
+        "oT"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/T.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{Q}",
+      "english": "untap this permanent",
+      "transposable": false,
+      "represents_mana": false,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": false,
+      "funny": false,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/Q.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{E}",
+      "english": "an energy counter",
+      "transposable": false,
+      "represents_mana": false,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": false,
+      "funny": false,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/E.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{PW}",
+      "english": "planeswalker",
+      "transposable": false,
+      "represents_mana": false,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": false,
+      "funny": false,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/PW.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{CHAOS}",
+      "english": "chaos",
+      "transposable": false,
+      "represents_mana": false,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": false,
+      "funny": false,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/CHAOS.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{A}",
+      "english": "an acorn counter",
+      "transposable": false,
+      "represents_mana": false,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": false,
+      "funny": true,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/A.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{TK}",
+      "english": "a ticket counter",
+      "transposable": false,
+      "represents_mana": false,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": false,
+      "funny": false,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/TK.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{X}",
+      "loose_variant": "X",
+      "english": "X generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "oX",
+        "ooX"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/X.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{Y}",
+      "loose_variant": "Y",
+      "english": "Y generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": true,
+      "funny": true,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/Y.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{Z}",
+      "loose_variant": "Z",
+      "english": "Z generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": true,
+      "funny": true,
+      "colors": [],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/Z.svg"
+    }
+  ],
+  "has_more": true,
+  "next_page": "https://api.scryfall.com/symbols?page=2"
+}

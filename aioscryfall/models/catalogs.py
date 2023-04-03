@@ -3,7 +3,7 @@
 from msgspec import Struct
 
 
-class ScryCatalog(Struct, tag_field="object", tag="catalog", kw_only=True):
+class ScryCatalog(Struct, tag_field="object", tag="catalog", kw_only=True, omit_defaults=True):
     """A ScryCatalog object contains an array of Magic datapoints."""
 
     uri: str | None = None

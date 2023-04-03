@@ -22,12 +22,3 @@ async def test_bulk_data_endpoints(client_session: "ClientSession") -> None:
 
     default_cards_bulk3 = await bulk_data.getby_type(client_session, "default_cards")
     assert default_cards_bulk3 == default_cards_bulk
-
-
-async def test_fetch(client_session: "ClientSession") -> None:
-    rulings_bulk = await bulk_data.getby_type(client_session, "rulings")
-    assert rulings_bulk.download_uri
-
-    rulings = await bulk_data.fetch(rulings_bulk)
-    assert rulings
-    assert isinstance(rulings[0], ScryRuling)

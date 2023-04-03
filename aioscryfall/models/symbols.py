@@ -5,7 +5,9 @@ from msgspec import Struct
 from .common import ScryColor
 
 
-class ScryCardSymbol(Struct, tag_field="object", tag="card_symbol", kw_only=True):
+class ScryCardSymbol(
+    Struct, tag_field="object", tag="card_symbol", kw_only=True, omit_defaults=True
+):
     """ScryCardSymbol represent illustrated symbols from a card's mana cost or Oracle text."""
 
     symbol: str
@@ -21,7 +23,7 @@ class ScryCardSymbol(Struct, tag_field="object", tag="card_symbol", kw_only=True
     svg_uri: str | None = None
 
 
-class ScryManaCost(Struct, tag_field="object", tag="mana_cost", kw_only=True):
+class ScryManaCost(Struct, tag_field="object", tag="mana_cost", kw_only=True, omit_defaults=True):
     """ScryManaCost object represents a canonicalized mana cost."""
 
     cost: str

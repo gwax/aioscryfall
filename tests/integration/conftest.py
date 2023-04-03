@@ -1,34 +1,24 @@
 """Pytest configuration for integration tests."""
 
-import asyncio
-from typing import TYPE_CHECKING
+from collections.abc import AsyncGenerator
+from pathlib import Path
 
 import pytest
-import pytest_asyncio
-from aiohttp import ClientSession
+from aiolimiter import AsyncLimiter
 
-if TYPE_CHECKING:
-    from asyncio import AbstractEventLoop
-    from collections.abc import AsyncGenerator, Generator
+LIMITER = AsyncLimiter(10, 1)  # 10 requests per second
 
 
 def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
     """Mark all tests in this folder as integration tests."""
+    conftest_path = Path(__file__).parent
     for item in items:
-        item.add_marker("integration")
+        if conftest_path in Path(item.fspath).parents:
+            item.add_marker("integration")
 
 
-@pytest.fixture(scope="session")
-def event_loop() -> "Generator[AbstractEventLoop, None, None]":
-    """Test session scoped event loop."""
-    policy = asyncio.get_event_loop_policy()
-    loop = policy.new_event_loop()
-    yield loop
-    loop.close()
-
-
-@pytest_asyncio.fixture(scope="session")
-async def client_session() -> "AsyncGenerator[ClientSession, None]":
-    """Test session scoped aiohttp ClientSession."""
-    async with ClientSession() as sess:
-        yield sess
+@pytest.fixture(autouse=True)
+async def _limit_requests() -> AsyncGenerator[None, None]:
+    """Limit requests to 10 per second."""
+    async with LIMITER:
+        yield

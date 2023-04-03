@@ -1,0 +1,9 @@
+{
+  "object": "migration",
+  "id": "a7d78fca-990e-471d-b965-7a757bc38250",
+  "uri": "https://api.scryfall.com/migrations/a7d78fca-990e-471d-b965-7a757bc38250",
+  "performed_at": "2023-03-14",
+  "migration_strategy": "delete",
+  "old_scryfall_id": "ebb0bc4b-6e01-40ae-a9c8-af08b144141b",
+  "note": "Duplicate entry"
+}

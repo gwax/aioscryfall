@@ -1,0 +1,166 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "card_symbol",
+      "symbol": "{0}",
+      "loose_variant": "0",
+      "english": "zero mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 0.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o0"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/0.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{½}",
+      "loose_variant": "½",
+      "english": "one-half generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 0.5,
+      "appears_in_mana_costs": false,
+      "funny": true,
+      "colors": [],
+      "gatherer_alternates": [
+        "o½"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/HALF.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{1}",
+      "loose_variant": "1",
+      "english": "one generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 1.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o1"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/1.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{2}",
+      "loose_variant": "2",
+      "english": "two generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 2.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o2"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/2.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{3}",
+      "loose_variant": "3",
+      "english": "three generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 3.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o3"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/3.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{4}",
+      "loose_variant": "4",
+      "english": "four generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 4.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o4"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/4.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{5}",
+      "loose_variant": "5",
+      "english": "five generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 5.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o5"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/5.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{6}",
+      "loose_variant": "6",
+      "english": "six generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 6.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o6"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/6.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{7}",
+      "loose_variant": "7",
+      "english": "seven generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 7.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o7"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/7.svg"
+    },
+    {
+      "object": "card_symbol",
+      "symbol": "{8}",
+      "loose_variant": "8",
+      "english": "eight generic mana",
+      "transposable": false,
+      "represents_mana": true,
+      "mana_value": 8.0,
+      "appears_in_mana_costs": true,
+      "funny": false,
+      "colors": [],
+      "gatherer_alternates": [
+        "o8"
+      ],
+      "svg_uri": "https://svgs.scryfall.io/card-symbols/8.svg"
+    }
+  ],
+  "has_more": false
+}

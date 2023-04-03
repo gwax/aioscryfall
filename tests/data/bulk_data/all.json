@@ -1,0 +1,66 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "bulk_data",
+      "id": "27bf3214-1271-490b-bdfe-c0be6c23d02e",
+      "uri": "https://api.scryfall.com/bulk-data/27bf3214-1271-490b-bdfe-c0be6c23d02e",
+      "type": "oracle_cards",
+      "name": "Oracle Cards",
+      "description": "A JSON file containing one Scryfall card object for each Oracle ID on Scryfall. The chosen sets for the cards are an attempt to return the most up-to-date recognizable version of the card.",
+      "download_uri": "https://data.scryfall.io/oracle-cards/oracle-cards-20230402210322.json",
+      "updated_at": "2023-04-02T21:03:22.649000Z",
+      "content_type": "application/json",
+      "content_encoding": "gzip"
+    },
+    {
+      "object": "bulk_data",
+      "id": "6bbcf976-6369-4401-88fc-3a9e4984c305",
+      "uri": "https://api.scryfall.com/bulk-data/6bbcf976-6369-4401-88fc-3a9e4984c305",
+      "type": "unique_artwork",
+      "name": "Unique Artwork",
+      "description": "A JSON file of Scryfall card objects that together contain all unique artworks. The chosen cards promote the best image scans.",
+      "download_uri": "https://data.scryfall.io/unique-artwork/unique-artwork-20230402210439.json",
+      "updated_at": "2023-04-02T21:04:39.130000Z",
+      "content_type": "application/json",
+      "content_encoding": "gzip"
+    },
+    {
+      "object": "bulk_data",
+      "id": "e2ef41e3-5778-4bc2-af3f-78eca4dd9c23",
+      "uri": "https://api.scryfall.com/bulk-data/e2ef41e3-5778-4bc2-af3f-78eca4dd9c23",
+      "type": "default_cards",
+      "name": "Default Cards",
+      "description": "A JSON file containing every card object on Scryfall in English or the printed language if the card is only available in one language.",
+      "download_uri": "https://data.scryfall.io/default-cards/default-cards-20230402210915.json",
+      "updated_at": "2023-04-02T21:09:15.147000Z",
+      "content_type": "application/json",
+      "content_encoding": "gzip"
+    },
+    {
+      "object": "bulk_data",
+      "id": "922288cb-4bef-45e1-bb30-0c2bd3d3534f",
+      "uri": "https://api.scryfall.com/bulk-data/922288cb-4bef-45e1-bb30-0c2bd3d3534f",
+      "type": "all_cards",
+      "name": "All Cards",
+      "description": "A JSON file containing every card object on Scryfall in every language.",
+      "download_uri": "https://data.scryfall.io/all-cards/all-cards-20230402212201.json",
+      "updated_at": "2023-04-02T21:22:01.929000Z",
+      "content_type": "application/json",
+      "content_encoding": "gzip"
+    },
+    {
+      "object": "bulk_data",
+      "id": "06f54c0b-ab9c-452d-b35a-8297db5eb940",
+      "uri": "https://api.scryfall.com/bulk-data/06f54c0b-ab9c-452d-b35a-8297db5eb940",
+      "type": "rulings",
+      "name": "Rulings",
+      "description": "A JSON file containing all Rulings on Scryfall. Each ruling refers to cards via an `oracle_id`.",
+      "download_uri": "https://data.scryfall.io/rulings/rulings-20230402210027.json",
+      "updated_at": "2023-04-02T21:00:27.623000Z",
+      "content_type": "application/json",
+      "content_encoding": "gzip"
+    }
+  ],
+  "has_more": false
+}

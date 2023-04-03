@@ -1,0 +1,138 @@
+{
+  "object": "card",
+  "id": "c1e0f201-42cb-46a1-901a-65bb4fc18f6c",
+  "lang": "en",
+  "mtgo_id": 90899,
+  "multiverse_ids": [
+    522335
+  ],
+  "tcgplayer_id": 238619,
+  "cardmarket_id": 564645,
+  "oracle_id": "4c6a0c30-b547-4eff-8ff4-0ca25803c076",
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4c6a0c30-b547-4eff-8ff4-0ca25803c076&unique=prints",
+  "rulings_uri": "https://api.scryfall.com/cards/c1e0f201-42cb-46a1-901a-65bb4fc18f6c/rulings",
+  "scryfall_uri": "https://scryfall.com/card/mh2/259/urzas-saga?utm_source=api",
+  "uri": "https://api.scryfall.com/cards/c1e0f201-42cb-46a1-901a-65bb4fc18f6c",
+  "all_parts": [
+    {
+      "object": "related_card",
+      "id": "2138dfbb-a4e3-49db-b908-95d0b2b7e82f",
+      "component": "combo_piece",
+      "name": "Urza's Saga",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "uri": "https://api.scryfall.com/cards/2138dfbb-a4e3-49db-b908-95d0b2b7e82f"
+    },
+    {
+      "object": "related_card",
+      "id": "a7caaf39-8f16-4f1d-bee6-a45674306319",
+      "component": "token",
+      "name": "Construct",
+      "type_line": "Token Artifact Creature — Construct",
+      "uri": "https://api.scryfall.com/cards/a7caaf39-8f16-4f1d-bee6-a45674306319"
+    }
+  ],
+  "cmc": 0.0,
+  "colors": [],
+  "color_identity": [],
+  "edhrec_rank": 135,
+  "foil": true,
+  "keywords": [],
+  "layout": "saga",
+  "legalities": {
+    "standard": "not_legal",
+    "future": "not_legal",
+    "historic": "not_legal",
+    "gladiator": "not_legal",
+    "pioneer": "not_legal",
+    "explorer": "not_legal",
+    "modern": "legal",
+    "legacy": "legal",
+    "pauper": "not_legal",
+    "vintage": "legal",
+    "penny": "not_legal",
+    "commander": "legal",
+    "oathbreaker": "legal",
+    "brawl": "not_legal",
+    "historicbrawl": "not_legal",
+    "alchemy": "not_legal",
+    "paupercommander": "not_legal",
+    "duel": "legal",
+    "oldschool": "not_legal",
+    "premodern": "not_legal",
+    "predh": "not_legal"
+  },
+  "mana_cost": "",
+  "name": "Urza's Saga",
+  "nonfoil": true,
+  "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Urza's Saga gains \"{T}: Add {C}.\"\nII — Urza's Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This creature gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle.",
+  "oversized": false,
+  "produced_mana": [
+    "C"
+  ],
+  "reserved": false,
+  "type_line": "Enchantment Land — Urza's Saga",
+  "artist": "Titus Lunter",
+  "artist_ids": [
+    "b11e6b3a-f4ca-4cf1-8fd7-475696de5f5c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "collector_number": "259",
+  "digital": false,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "frame": "2015",
+  "full_art": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "illustration_id": "ef72bbb2-d10c-45a2-a3b8-3ba591379aa5",
+  "image_status": "highres_scan",
+  "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1667318301",
+    "normal": "https://cards.scryfall.io/normal/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1667318301",
+    "large": "https://cards.scryfall.io/large/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1667318301",
+    "png": "https://cards.scryfall.io/png/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.png?1667318301",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1667318301",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1667318301"
+  },
+  "prices": {
+    "usd": "29.26",
+    "usd_foil": "66.46",
+    "usd_etched": null,
+    "eur": "34.37",
+    "eur_foil": "56.95",
+    "tix": "34.50"
+  },
+  "promo": false,
+  "purchase_uris": {
+    "tcgplayer": "https://www.tcgplayer.com/product/238619?page=1&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Urza%27s+Saga&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "cardhoarder": "https://www.cardhoarder.com/cards/90899?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=522335",
+    "tcgplayer_infinite_articles": "https://infinite.tcgplayer.com/search?contentMode=article&game=magic&partner=scryfall&q=Urza%27s+Saga&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall",
+    "tcgplayer_infinite_decks": "https://infinite.tcgplayer.com/search?contentMode=deck&game=magic&partner=scryfall&q=Urza%27s+Saga&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall",
+    "edhrec": "https://edhrec.com/route/?cc=Urza%27s+Saga"
+  },
+  "released_at": "2021-06-18",
+  "reprint": false,
+  "scryfall_set_uri": "https://scryfall.com/sets/mh2?utm_source=api",
+  "set_name": "Modern Horizons 2",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amh2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "set": "mh2",
+  "set_id": "c1c7eb8c-f205-40ab-a609-767cb296544e",
+  "story_spotlight": false,
+  "textless": false,
+  "variation": false,
+  "security_stamp": "oval"
+}

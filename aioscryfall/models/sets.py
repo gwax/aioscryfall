@@ -35,7 +35,9 @@ class ScrySetType(str, Enum):
     MINIGAME = "minigame"
 
 
-class ScrySet(Struct, tag_field="object", tag="set", kw_only=True, rename={"id_": "id"}):
+class ScrySet(
+    Struct, tag_field="object", tag="set", kw_only=True, omit_defaults=True, rename={"id_": "id"}
+):
     """A ScrySet object represents a group of related Magic cards."""
 
     id_: UUID

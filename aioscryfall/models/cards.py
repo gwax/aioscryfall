@@ -149,7 +149,12 @@ class ScryCardLegality(str, Enum):
 
 
 class ScryRelatedCard(
-    Struct, tag_field="object", tag="related_card", kw_only=True, rename={"id_": "id"}
+    Struct,
+    tag_field="object",
+    tag="related_card",
+    kw_only=True,
+    omit_defaults=True,
+    rename={"id_": "id"},
 ):
     """A ScryRelatedCard represents a closely related card."""
 
@@ -160,7 +165,7 @@ class ScryRelatedCard(
     uri: str
 
 
-class ScryCardFace(Struct, tag_field="object", tag="card_face", kw_only=True):
+class ScryCardFace(Struct, tag_field="object", tag="card_face", kw_only=True, omit_defaults=True):
     """A ScryCardFace represents a singl card face in a split, flip, transform, or meld card."""
 
     artist: str | None = None
@@ -196,7 +201,12 @@ class ScryCardPreviewBlock(Struct):
 
 
 class ScryCard(
-    Struct, tag_field="object", tag="card", kw_only=True, rename={"id_": "id", "set_": "set"}
+    Struct,
+    tag_field="object",
+    tag="card",
+    kw_only=True,
+    omit_defaults=True,
+    rename={"id_": "id", "set_": "set"},
 ):
     """ScryCard objects represent individual Magic: The Gathering cards."""
 

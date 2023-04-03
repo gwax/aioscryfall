@@ -11,6 +11,7 @@ class ScryBulkData(
     tag_field="object",
     tag="bulk_data",
     kw_only=True,
+    omit_defaults=True,
     rename={"id_": "id", "type_": "type"},
 ):
     """A ScryBulkData represents a daily exports of Scryfall data in bulk files."""
