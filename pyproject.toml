@@ -139,6 +139,7 @@ ignore = [
   "D101",  # test classes may have missing docstrings
   "D102",  # test methods may have missing docstrings
   "D103",  # test functions may have missing docstrings
+  "T201",  # test functions may use print
 ]
 
 [tool.ruff.isort]

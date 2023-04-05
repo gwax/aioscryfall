@@ -1,0 +1,6 @@
+{
+  "object": "error",
+  "status": 422,
+  "code": "validation_error",
+  "details": "The string fragment(s) “TFF” could not be understood as part of mana cost."
+}

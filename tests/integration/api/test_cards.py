@@ -231,7 +231,7 @@ async def test_collection(
 async def test_set_code_and_number(
     client_session: "ClientSession",
 ) -> None:
-    result = await cards.getby_set_code_and_number(client_session, "mrd", "150")
+    result = await cards.getby_set_code_and_collector_number(client_session, "mrd", "150")
     assert result.name == "Chalice of the Void"
 
 

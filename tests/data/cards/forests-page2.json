@@ -212,12 +212,12 @@
         "border_crop": "https://cards.scryfall.io/border_crop/front/b/b/bb54233c-0844-4965-9cde-e8a4ef3e11b8.jpg?1584832238"
       },
       "prices": {
-        "usd": "21.31",
+        "usd": "20.82",
         "usd_foil": "27.77",
         "usd_etched": null,
-        "eur": "18.76",
-        "eur_foil": "26.00",
-        "tix": "1.21"
+        "eur": "19.05",
+        "eur_foil": "21.95",
+        "tix": "1.38"
       },
       "promo": false,
       "purchase_uris": {
@@ -345,11 +345,11 @@
       },
       "prices": {
         "usd": "21.40",
-        "usd_foil": "35.51",
+        "usd_foil": "35.53",
         "usd_etched": null,
-        "eur": "17.78",
+        "eur": "17.90",
         "eur_foil": "29.89",
-        "tix": "1.21"
+        "tix": "1.38"
       },
       "promo": false,
       "purchase_uris": {
@@ -469,12 +469,12 @@
         "border_crop": "https://cards.scryfall.io/border_crop/front/b/9/b98b2a35-ec2b-47fe-903d-dd292e469a3c.jpg?1593274081"
       },
       "prices": {
-        "usd": "32.59",
+        "usd": "32.39",
         "usd_foil": "489.99",
         "usd_etched": null,
-        "eur": "14.99",
+        "eur": "17.00",
         "eur_foil": "174.99",
-        "tix": "1.35"
+        "tix": "1.34"
       },
       "promo": false,
       "purchase_uris": {
@@ -594,10 +594,10 @@
         "border_crop": "https://cards.scryfall.io/border_crop/front/8/3/830eb270-f7aa-4694-8fe1-7c19e148a39f.jpg?1673916834"
       },
       "prices": {
-        "usd": "28.71",
-        "usd_foil": "32.36",
+        "usd": "28.75",
+        "usd_foil": "32.14",
         "usd_etched": null,
-        "eur": "32.66",
+        "eur": "30.45",
         "eur_foil": "37.00",
         "tix": null
       },
@@ -717,7 +717,7 @@
       },
       "prices": {
         "usd": null,
-        "usd_foil": "115.77",
+        "usd_foil": "114.12",
         "usd_etched": null,
         "eur": null,
         "eur_foil": "126.70",
@@ -839,7 +839,7 @@
         "border_crop": "https://cards.scryfall.io/border_crop/front/1/9/19477aca-b8db-4061-9a78-ebb189a9df22.jpg?1674422724"
       },
       "prices": {
-        "usd": "23.88",
+        "usd": "23.93",
         "usd_foil": null,
         "usd_etched": null,
         "eur": "24.96",
@@ -962,7 +962,7 @@
         "usd_etched": null,
         "eur": null,
         "eur_foil": null,
-        "tix": "6.84"
+        "tix": "7.45"
       },
       "promo": true,
       "purchase_uris": {
@@ -1077,10 +1077,10 @@
         "border_crop": "https://cards.scryfall.io/border_crop/front/e/4/e4ab950c-9516-4b5d-bd54-a17958968320.jpg?1570827709"
       },
       "prices": {
-        "usd": "21.67",
+        "usd": "21.93",
         "usd_foil": "29.04",
         "usd_etched": null,
-        "eur": "16.99",
+        "eur": "17.63",
         "eur_foil": "18.99",
         "tix": null
       },
@@ -1211,7 +1211,7 @@
         "usd_etched": null,
         "eur": null,
         "eur_foil": "119.99",
-        "tix": "2.00"
+        "tix": "2.04"
       },
       "promo": false,
       "purchase_uris": {

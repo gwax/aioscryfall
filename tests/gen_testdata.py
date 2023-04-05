@@ -9,6 +9,7 @@ from aiohttp import ClientSession
 from aiolimiter import AsyncLimiter
 
 from aioscryfall.api import bulk_data, cards, catalogs, migrations, rulings, sets, symbols
+from aioscryfall.errors import APIError
 from aioscryfall.models.lists import RawScryList, ScryList
 
 TEST_DATA_DIR = Path(__file__).parent / "data"
@@ -31,6 +32,7 @@ def _pretty_encode(obj: Any) -> bytes:
 
 async def update_bulk_data(session: "ClientSession") -> None:
     """Update the bulk data test data files."""
+    print("Updating bulk data test data files")
     bulk_data_path = TEST_DATA_DIR / "bulk_data"
     await aiofiles.os.makedirs(bulk_data_path, exist_ok=True)
 
@@ -46,6 +48,7 @@ async def update_bulk_data(session: "ClientSession") -> None:
 
 async def update_cards(session: "ClientSession") -> None:
     """Update the cards test data files."""
+    print("Updating cards test data files")
     cards_path = TEST_DATA_DIR / "cards"
     await aiofiles.os.makedirs(cards_path, exist_ok=True)
 
@@ -67,7 +70,9 @@ async def update_cards(session: "ClientSession") -> None:
     async with LIMITER:
         async with aiofiles.open(cards_path / "single.json", "wb") as file:
             await file.write(
-                _pretty_encode(await cards.getby_set_code_and_number(session, "mh2", "259"))
+                _pretty_encode(
+                    await cards.getby_set_code_and_collector_number(session, "mh2", "259")
+                )
             )
 
     async with LIMITER:
@@ -77,6 +82,7 @@ async def update_cards(session: "ClientSession") -> None:
 
 async def updata_catalogs(session: "ClientSession") -> None:
     """Update the catalogs test data files."""
+    print("Updating catalogs test data files")
     catalog_path = TEST_DATA_DIR / "catalog"
     await aiofiles.os.makedirs(catalog_path, exist_ok=True)
 
@@ -103,8 +109,23 @@ async def updata_catalogs(session: "ClientSession") -> None:
                 await file.write(_pretty_encode(await func(session)))
 
 
+async def update_errors(session: "ClientSession") -> None:
+    """Update the errors test data files."""
+    print("Updating errors test data files")
+    errors_path = TEST_DATA_DIR / "errors"
+    await aiofiles.os.makedirs(errors_path, exist_ok=True)
+
+    async with LIMITER:
+        try:
+            await symbols.parse_mana(session, "stuff")
+        except APIError as err:
+            async with aiofiles.open(errors_path / "parse-mana.json", "wb") as file:
+                await file.write(_pretty_encode(err.error))
+
+
 async def update_migrations(session: "ClientSession") -> None:
     """Update the migrations test data files."""
+    print("Updating migrations test data files")
     migrations_path = TEST_DATA_DIR / "migrations"
     await aiofiles.os.makedirs(migrations_path, exist_ok=True)
 
@@ -128,18 +149,22 @@ async def update_migrations(session: "ClientSession") -> None:
 
 async def update_rulings(session: "ClientSession") -> None:
     """Update the rulings test data files."""
+    print("Updating rulings test data files")
     rulings_path = TEST_DATA_DIR / "rulings"
     await aiofiles.os.makedirs(rulings_path, exist_ok=True)
 
     async with LIMITER:
-        async with aiofiles.open(rulings_path / "single.json", "wb") as file:
+        async with aiofiles.open(rulings_path / "single-card.json", "wb") as file:
             await file.write(
-                _pretty_encode(await rulings.getby_set_code_and_number(session, "rtr", "213"))
+                _pretty_encode(
+                    await rulings.getby_set_code_and_collector_number(session, "rtr", "213")
+                )
             )
 
 
 async def update_sets(session: "ClientSession") -> None:
     """Update the sets test data files."""
+    print("Updating sets test data files")
     sets_path = TEST_DATA_DIR / "sets"
     await aiofiles.os.makedirs(sets_path, exist_ok=True)
 
@@ -163,6 +188,7 @@ async def update_sets(session: "ClientSession") -> None:
 
 async def update_symbols(session: "ClientSession") -> None:
     """Update the symbols test data files."""
+    print("Updating symbols test data files")
     symbols_path = TEST_DATA_DIR / "symbols"
     await aiofiles.os.makedirs(symbols_path, exist_ok=True)
 
@@ -187,15 +213,18 @@ async def update_symbols(session: "ClientSession") -> None:
 
 async def main() -> None:
     """Run the script."""
+    print("Updating test data files")
     await aiofiles.os.makedirs(TEST_DATA_DIR, exist_ok=True)
     async with ClientSession() as session:
         await update_bulk_data(session)
         await update_cards(session)
         await updata_catalogs(session)
+        await update_errors(session)
         await update_migrations(session)
         await update_rulings(session)
         await update_sets(session)
         await update_symbols(session)
+    print("Done updating test data files")
 
 
 if __name__ == "__main__":

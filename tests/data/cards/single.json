@@ -102,12 +102,12 @@
     "border_crop": "https://cards.scryfall.io/border_crop/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1667318301"
   },
   "prices": {
-    "usd": "29.26",
-    "usd_foil": "66.46",
+    "usd": "28.57",
+    "usd_foil": "66.37",
     "usd_etched": null,
-    "eur": "34.37",
-    "eur_foil": "56.95",
-    "tix": "34.50"
+    "eur": "36.11",
+    "eur_foil": "70.22",
+    "tix": "37.96"
   },
   "promo": false,
   "purchase_uris": {

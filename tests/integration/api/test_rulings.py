@@ -95,7 +95,7 @@ async def test_arena_id(client_session: "ClientSession") -> None:
 
 
 async def test_set_code_and_number(client_session: "ClientSession") -> None:
-    result = await rulings.getby_set_code_and_number(client_session, "rtr", "213")
+    result = await rulings.getby_set_code_and_collector_number(client_session, "rtr", "213")
     assert [ruling.comment for ruling in result.data] == [
         (
             "Because the first ability requires a target, it"

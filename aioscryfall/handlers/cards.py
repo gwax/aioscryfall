@@ -144,7 +144,7 @@ class CardsHandler(BaseHandler):
             raise ValueError(invalid_args_msg)
         async with self._client.limiter:
             if set_code is not None and collector_number is not None:
-                return await cards.getby_set_code_and_number(
+                return await cards.getby_set_code_and_collector_number(
                     self._client.session, set_code, collector_number
                 )
             if multiverse_id is not None:

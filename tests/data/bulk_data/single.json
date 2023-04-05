@@ -5,8 +5,8 @@
   "type": "oracle_cards",
   "name": "Oracle Cards",
   "description": "A JSON file containing one Scryfall card object for each Oracle ID on Scryfall. The chosen sets for the cards are an attempt to return the most up-to-date recognizable version of the card.",
-  "download_uri": "https://data.scryfall.io/oracle-cards/oracle-cards-20230402210322.json",
-  "updated_at": "2023-04-02T21:03:22.649000Z",
+  "download_uri": "https://data.scryfall.io/oracle-cards/oracle-cards-20230404210321.json",
+  "updated_at": "2023-04-04T21:03:21.500000Z",
   "content_type": "application/json",
   "content_encoding": "gzip"
 }

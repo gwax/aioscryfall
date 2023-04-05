@@ -64,7 +64,7 @@ class RulingsHandler(BaseHandler):
             elif arena_id is not None:
                 first_page = await rulings.getby_arena_id(self._client.session, arena_id)
             elif set_code is not None and collector_number is not None:
-                first_page = await rulings.getby_set_code_and_number(
+                first_page = await rulings.getby_set_code_and_collector_number(
                     self._client.session, set_code, collector_number
                 )
             else:

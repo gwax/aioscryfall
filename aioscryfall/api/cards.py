@@ -247,7 +247,7 @@ async def collection(
         return await responses.read_response_payload(resp, ScryList[ScryCard])
 
 
-async def getby_set_code_and_number(
+async def getby_set_code_and_collector_number(
     session: "ClientSession",
     set_code: str,
     collector_number: str,

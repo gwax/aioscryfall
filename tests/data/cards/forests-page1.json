@@ -23,7 +23,7 @@
         "G",
         "W"
       ],
-      "edhrec_rank": 1325,
+      "edhrec_rank": 1328,
       "foil": true,
       "keywords": [],
       "layout": "normal",
@@ -99,9 +99,9 @@
       },
       "prices": {
         "usd": "0.45",
-        "usd_foil": "0.45",
+        "usd_foil": "0.46",
         "usd_etched": null,
-        "eur": "0.38",
+        "eur": "0.40",
         "eur_foil": "0.48",
         "tix": "0.03"
       },
@@ -229,7 +229,7 @@
         "usd_etched": null,
         "eur": null,
         "eur_foil": null,
-        "tix": "3.42"
+        "tix": "3.16"
       },
       "promo": false,
       "purchase_uris": {
@@ -351,7 +351,7 @@
         "usd_etched": null,
         "eur": null,
         "eur_foil": null,
-        "tix": "4.12"
+        "tix": "4.11"
       },
       "promo": false,
       "purchase_uris": {
@@ -707,7 +707,7 @@
         "usd": "408.79",
         "usd_foil": null,
         "usd_etched": null,
-        "eur": "400.00",
+        "eur": "277.50",
         "eur_foil": null,
         "tix": null
       },
@@ -1186,7 +1186,7 @@
         "usd_etched": null,
         "eur": null,
         "eur_foil": null,
-        "tix": "3.50"
+        "tix": "3.60"
       },
       "promo": true,
       "purchase_uris": {

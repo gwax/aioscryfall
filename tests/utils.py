@@ -1,7 +1,7 @@
 """Test utility functions."""
 
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import aiofiles
 
@@ -11,7 +11,24 @@ if TYPE_CHECKING:
 TEST_DATA_DIR = Path(__file__).parent / "data"
 
 
-async def load_get_payload(mock_aioresponses: "aioresponses", url: str, filename: str) -> None:
+async def load_get_payload(
+    mock_aioresponses: "aioresponses", url: str, filename: str, *, status_code: int = 200
+) -> None:
     """Load a mock payload from a file."""
     async with aiofiles.open(TEST_DATA_DIR / filename, "rb") as file:
-        mock_aioresponses.get(url, body=await file.read())
+        mock_aioresponses.get(url, status=status_code, body=await file.read())
+
+
+async def load_post_payload(
+    mock_aioresponses: "aioresponses",
+    url: str,
+    filename: str,
+    *,
+    status_code: int = 200,
+    payload: dict[str, Any] | None = None,
+) -> None:
+    """Load a mock payload from a file."""
+    if payload is None:
+        payload = {}
+    async with aiofiles.open(TEST_DATA_DIR / filename, "rb") as file:
+        mock_aioresponses.post(url, status=status_code, body=await file.read())
