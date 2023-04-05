@@ -7,6 +7,7 @@ import aiohttp
 
 from aioscryfall.client import ScryfallClient
 from aioscryfall.sync.handlers.bulk_data import BulkDataSyncHandler
+from aioscryfall.sync.handlers.cards import CardsSyncHandler
 from aioscryfall.sync.handlers.catalogs import CatalogsSyncHandler
 from aioscryfall.sync.handlers.migrations import MigrationsSyncHandler
 from aioscryfall.sync.handlers.rulings import RulingsSyncHandler
@@ -22,6 +23,7 @@ class ScryfallSyncClient:
 
         # Mount handlers
         self.bulk_data = BulkDataSyncHandler(self)
+        self.cards = CardsSyncHandler(self)
         self.catalogs = CatalogsSyncHandler(self)
         self.migrations = MigrationsSyncHandler(self)
         self.rulings = RulingsSyncHandler(self)
