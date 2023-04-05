@@ -1,14 +1,13 @@
 aioscryfall - Asynchronous Python client for Scryfall API
 =========================================================
 
-This is an early work in progress. I am currently in the phase of getting all of the
-features in place. Once everything is in place, I will clean up the API and add
-some abstraction layers and documentation on top.
+aioscryfall is a Python client for the Scryfall API. It is primarily designed for asynchronous use with asyncio, but a synchronous client is also provided.
 
-For now, the API is very low level and you will need to read the Scryfall API and
-the code to figure out how to use it.
+The development is essentially feature complete but the documentation is largely absent, at present. (I need to remind myself how mkdocs works and figure out what I want to say)
 
-You will need Python >= 3.11 (I may change this to support earlier versions in the future) and you will need to use aiohttp.
+As of right now, Python 3.11 is required because I wanted to use a number of typing features that were added in 3.11. I may change this in the future, but it is a lower priority than getting the API to a point where I am happy with it.
+
+Everything is extensively typed and I have tried to make the API as intuitive as possible. I have also tried to make the API as close to the Scryfall API as possible, but I have made some changes to make it more Pythonic (namely converting paginated lists into iterable generators).
 
 A minimal use case to get yourself started:
 
