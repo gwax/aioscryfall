@@ -44,6 +44,7 @@ dev = [
     "pytest-asyncio",
     "ruff",
     "types-aiofiles",
+    "types-appdirs",
 ]
 
 [tool.mypy]
@@ -129,9 +130,14 @@ ignore = [
   "E501",  # line too long, handled by black
   "S105",  # too many password flase positives
   "D107",  # Prefer class docstring on class, not __init__()
+  "D203",  # 1 blank line required before class docstring
+  "D213",  # Multi-line docstring summary should start at the second line
 ]
 
 [tool.ruff.per-file-ignores]
+"__init__.py" = [
+  "D104",  # missing docstring in public package
+]
 # Tests can use relative imports and assertions
 "tests/**/*" = [
   "S101",  # tests should use assert
@@ -145,3 +151,6 @@ ignore = [
 [tool.ruff.isort]
 known-first-party = ["aioscryfall"]
 
+[tool.ruff.pylint]
+max-args = 7
+max-returns = 8

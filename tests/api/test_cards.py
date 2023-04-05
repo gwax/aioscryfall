@@ -177,7 +177,7 @@ async def test_getby_set_code_and_collector_number(
         "https://api.scryfall.com/cards/isd/1",
         "cards/single.json",
     )
-    result = await cards.getby_set_code_and_collector_number(client_session, "isd", 1)
+    result = await cards.getby_set_code_and_collector_number(client_session, "isd", "1")
     assert result.name == "Urza's Saga"
 
 
@@ -190,7 +190,7 @@ async def test_getby_set_code_and_collector_number__with_language(
         "https://api.scryfall.com/cards/isd/1/fr",
         "cards/single.json",
     )
-    result = await cards.getby_set_code_and_collector_number(client_session, "isd", 1, lang="fr")
+    result = await cards.getby_set_code_and_collector_number(client_session, "isd", "1", lang="fr")
     assert result.name == "Urza's Saga"
 
 

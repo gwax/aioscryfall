@@ -1,7 +1,7 @@
 """Client handler for the Scryfall rulings APIs."""
 
 from collections.abc import AsyncIterable
-from typing import Any, TypeVar, overload
+from typing import overload
 from uuid import UUID
 
 from aioscryfall.api import rulings

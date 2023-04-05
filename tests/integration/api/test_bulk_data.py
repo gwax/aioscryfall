@@ -3,7 +3,6 @@
 from typing import TYPE_CHECKING
 
 from aioscryfall.api import bulk_data
-from aioscryfall.models.rulings import ScryRuling
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession

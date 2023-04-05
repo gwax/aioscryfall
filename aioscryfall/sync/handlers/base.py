@@ -1,11 +1,7 @@
 """Base class for all synchronous handlers."""
 
-import asyncio
-import functools
-from collections.abc import AsyncIterable, Awaitable, Coroutine, Iterable
-from typing import TYPE_CHECKING, Callable, Concatenate, ParamSpec, TypeVar
-
-import aiohttp
+from collections.abc import AsyncIterable, Awaitable, Callable, Iterable
+from typing import TYPE_CHECKING, TypeVar
 
 from aioscryfall.client import ScryfallClient
 

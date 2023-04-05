@@ -1,11 +1,6 @@
 """Synchronous client handler for Scryfall catalogs APIs."""
 
-from typing import TYPE_CHECKING
-
 from .base import BaseSyncHandler
-
-if TYPE_CHECKING:
-    from aioscryfall.client import ScryfallClient
 
 
 class CatalogsSyncHandler(BaseSyncHandler):

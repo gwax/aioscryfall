@@ -6,7 +6,6 @@ from aioscryfall.sync import client
 from tests import utils
 
 if TYPE_CHECKING:
-    from aiohttp import ClientSession
     from aioresponses import aioresponses
 
 

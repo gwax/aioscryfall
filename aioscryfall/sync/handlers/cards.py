@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, cast, overload
 from uuid import UUID
 
 from aioscryfall.models.cards import ScryCard
-from aioscryfall.models.lists import ScryListable
 
 from .base import BaseSyncHandler
 
@@ -113,7 +112,7 @@ class CardsSyncHandler(BaseSyncHandler):
     def get_card(self, *, scryfall_id: UUID) -> ScryCard:
         ...
 
-    async def get_card(
+    def get_card(
         self,
         *,
         set_code: str | None = None,
